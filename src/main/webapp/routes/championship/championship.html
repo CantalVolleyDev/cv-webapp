@@ -1,0 +1,60 @@
+<loader ng-show="championship.dataLoading" label="Chargement des classements..."></loader>
+<div ng-hide="championship.dataLoading" class="championship">
+  <div class="menu">
+    <div class="menu-item active">Division 1</div>
+    <div class="menu-item">Division 2</div>
+    <div class="menu-item">Division 1F</div>
+  </div>
+  <div class="details">
+    <div class="rankings">
+      <table cellspacing="0">
+        <thead>
+          <tr>
+            <th>Equipe</th>
+            <th>Pts</th>
+            <th>J.</th>
+            <th>V.</th>
+            <th>D.</th>
+            <th>D3/2</th>
+            <th>F</th>
+            <th>Pts p.</th>
+            <th>Pts c.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="team in championship.teams">
+            <td>{{team.team}}</td>
+            <td>{{team.points}}</td>
+            <td>{{team.play}}</td>
+            <td>{{team.win}}</td>
+            <td>{{team.loose}}</td>
+            <td>{{team.loose3By2}}</td>
+            <td></td>
+            <td>{{team.pointsFor}}</td>
+            <td>{{team.pointsAgainst}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="matchs">
+      <div ng-repeat="day in championship.matchsByDays">
+        <table cellspacing="0">
+          <thead>
+            <tr>
+              <th colspan="5">Journée {{day.day}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="match in day.matchs">
+              <td class="date">{{match.date}}</td>
+              <td class="team" ng-class-even="'winner'">{{match.firstTeam}}</td>
+              <td class="score">{{match.score}}</td>
+              <td class="team" ng-class-odd="'winner'">{{match.secondTeam}}</td>
+              <td class="score-detail">{{match.scoreDetail}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

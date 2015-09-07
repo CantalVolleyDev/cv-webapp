@@ -1,0 +1,19 @@
+<div class="news-element">
+  <div class="news">
+    <div>
+      <img ng-src="images/news{{newsData.identifier}}.jpg">
+    </div>
+    <div class="detail">
+      <div class="category">{{newsData.category}}</div>
+      <div class="title">{{newsData.title}}</div>
+      <div class="content">{{newsData.content}}</div>
+      <div class="publish-date">
+        <i class="cv-icon cv-icon-clock-o"></i> 
+        Publié le {{newsData.readablePublishDate}}
+      </div>
+      <div class="publish-user">
+        <i class="cv-icon cv-icon-user"></i> {{newsData.author.firstName}} {{newsData.author.name}}
+      </div>
+    </div>
+  </div>
+</div>

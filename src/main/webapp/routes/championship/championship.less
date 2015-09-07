@@ -1,0 +1,133 @@
+@import "variables";
+
+.championship {
+  min-height: calc(~"100% - "@footer-max-height + @header-height-desktop + @header-bottom-border-size)
+}
+
+@media (max-width: @desktop-min-width) {
+ .championship {
+   min-height: calc(~"100% - "@footer-max-height + @header-height-laptop + @header-bottom-border-size)
+ } 
+}
+
+.championship .menu {
+  text-align: center;
+  border-bottom: solid @championship-menu-border-bottom @global-second-color;
+}
+
+.championship .menu .menu-item {
+  font-weight: 700;
+  display: inline-block;
+  padding: @championship-menu-item-padding;
+  cursor: pointer;
+  height: @championship-menu-item-height;
+  border-bottom: solid @championship-menu-item-border-bottom white;
+  border-right: solid 1px white;
+  border-left: solid 1px white;
+}
+
+.championship .menu .menu-item:hover,
+.championship .menu .menu-item.active {
+  border-right: solid 1px @global-second-color;
+  border-left: solid 1px @global-second-color;
+  border-bottom: solid @championship-menu-item-border-bottom @global-first-color;
+}
+
+@championship-details-height: @footer-max-height + 
+                              @header-height-desktop + 
+                              @header-bottom-border-size + 
+                              @championship-menu-item-padding*2 + 
+                              @championship-menu-item-border-bottom + 
+                              @championship-menu-item-height + 
+                              @championship-details-padding*2 + 
+                              @championship-menu-border-bottom;
+
+.championship .details {
+  padding: @championship-details-padding;
+  background-color: @global-second-color;
+  min-height: calc(~"100% - "@championship-details-height);
+}
+
+.championship .details .rankings,
+.championship .details .matchs {
+  display: inline-block;
+  width: calc(~"50% -"@championship-details-padding + @championship-matchs-padding);
+  border: solid @championship-rankings-matchs-border black;
+  height: calc(~"100% - "@championship-details-height + @championship-rankings-matchs-border*2);
+}
+
+.championship .details .matchs {
+  position: absolute;
+  left: 50%;
+  overflow-y: scroll;
+  padding-left: @championship-matchs-padding;
+  padding-right: @championship-matchs-padding;
+}
+
+@media (max-width: @desktop-min-width) {
+  @championship-details-height: @footer-max-height + 
+                                @header-height-laptop + 
+                                @header-bottom-border-size + 
+                                @championship-menu-item-padding*2 + 
+                                @championship-menu-item-border-bottom + 
+                                @championship-menu-item-height + 
+                                @championship-details-padding*2 + 
+                                @championship-menu-border-bottom;
+  .championship .details {
+    min-height: calc(~"100% - "@championship-details-height)
+  }
+  .championship .details .rankings,
+  .championship .details .matchs {
+    height: calc(~"100% - "@championship-details-height + @championship-rankings-matchs-border*2);
+  }
+}
+
+.championship .details .rankings table,
+.championship .details .matchs table {
+  width: 100%;
+}
+
+.championship .details .matchs table {
+  margin-bottom: 10px;
+}
+
+.championship .details .rankings table thead tr th,
+.championship .details .rankings table tbody tr td {
+  width: calc(~"80%/8");
+  text-align: center;
+}
+
+.championship .details .rankings table thead tr th,
+.championship .details .matchs table thead tr th {
+  border-bottom: solid 1px darkgray;
+}
+
+.championship .details .matchs table tbody tr td {
+  border-bottom: solid 1px lightgray;
+}
+
+.championship .details .matchs table tbody tr td.date {
+  width: 20%;
+}
+.championship .details .matchs table tbody tr td.team {
+  width: 20%;
+  text-align: center;
+}
+.championship .details .matchs table tbody tr td.team.winner {
+  color: @global-first-color;
+}
+.championship .details .matchs table tbody tr td.score {
+  width: 5%;
+  text-align: center;
+}
+.championship .details .matchs table tbody tr td.score-detail {
+  width: 35%;
+}
+
+.championship .details .rankings table thead tr th:first-child {
+  width: 20%;
+}
+
+.championship .details .rankings table tbody tr td:first-child {
+  text-align: left;
+}

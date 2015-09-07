@@ -1,0 +1,10 @@
+<div class="data-container">
+  <div ng-show="showData" class="data-list">
+    <ng-transclude></ng-transclude>
+  </div>
+  <loader ng-show="dataLoading"></loader>
+  <div ng-show="dataEmpty" class="data-empty">{{emptyMessage}}</div>
+  <div ng-show="loadingError" class="data-loading-error">
+    {{errorMessage}} {{errorDetails}}
+  </div>
+</div>
