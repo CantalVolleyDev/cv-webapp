@@ -1,0 +1,1 @@
+app.value("dataServiceUrl", "http://localhost:8585/cvapi");

@@ -1,4 +1,4 @@
-app.directive('container', ['$http', function($http) {
+app.directive('container', ['$http', 'DataService', function($http, DataService) {
   return {
     templateUrl: 'components/container/container.html',
     transclude: true,
@@ -21,7 +21,7 @@ app.directive('container', ['$http', function($http) {
         angular.element(document.getElementsByClassName('data-list')).append(clone);
       });
 
-      $http.get('http://localhost:8484/cvapi/' + scope.route).then(function (result) {
+      DataService.get(scope.route).then(function (result) {
         scope.dataLoading = false;
         scope.data = result.data;
         scope.dataEmpty = (scope.data.length === 0);

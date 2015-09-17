@@ -28,8 +28,10 @@ module.exports = function (grunt) {
   configuration.paths.fullDirectories = {
     debug: configuration.paths.targetDirectories.final + '/debug',
     release: configuration.paths.targetDirectories.final + '/release',
+    dvt: configuration.paths.targetDirectories.final + '/dvt',
     components: 'components',
     routes: 'routes',
+    services: 'services',
     images: '../resources/' + configuration.paths.targetDirectories.images
   };
   
@@ -41,7 +43,8 @@ module.exports = function (grunt) {
       },
       target: {
         release: configuration.paths.fullDirectories.release + '/' + configuration.fileNames.releasecss,
-        debug: configuration.paths.fullDirectories.debug + '/' + configuration.fileNames.releasecss
+        debug: configuration.paths.fullDirectories.debug + '/' + configuration.fileNames.releasecss,
+        dvt: configuration.paths.fullDirectories.dvt + '/' + configuration.fileNames.releasecss
       }
     },
     js: {
@@ -54,7 +57,8 @@ module.exports = function (grunt) {
     },
     images: {
       debug: configuration.paths.fullDirectories.debug + '/' + configuration.paths.targetDirectories.images,
-      release: configuration.paths.fullDirectories.release + '/' + configuration.paths.targetDirectories.images
+      release: configuration.paths.fullDirectories.release + '/' + configuration.paths.targetDirectories.images,
+      dvt: configuration.paths.fullDirectories.dvt + '/' + configuration.paths.targetDirectories.images,
     }
   };
   
@@ -72,8 +76,9 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     configurationObj: configuration,
     clean: {
-      generationDirectory: configuration.paths.targetDirectories.final,
-      workDirectory: configuration.paths.targetDirectories.work
+      dvtDirectory: configuration.paths.fullDirectories.dvt,
+      workDirectory: configuration.paths.targetDirectories.work,
+      releaseDirectory: configuration.paths.fullDirectories.release
     },
     ngtemplates: {
       webapp: {
@@ -106,6 +111,18 @@ module.exports = function (grunt) {
       javascriptWork: {
         src: [
           'app.js', 
+          configuration.paths.fullDirectories.services + '/*.js',
+          '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlProd.js',
+          configuration.paths.fullDirectories.components + '/**/*.js', 
+          configuration.paths.fullDirectories.routes + '/**/*.js'
+        ],
+        dest: configuration.paths.absoluteFiles.js.work.full
+      },
+      javascriptWorkProd: {
+        src: [
+          'app.js', 
+          configuration.paths.fullDirectories.services + '/*.js',
+          '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlDvt.js',
           configuration.paths.fullDirectories.components + '/**/*.js', 
           configuration.paths.fullDirectories.routes + '/**/*.js'
         ],
@@ -169,6 +186,34 @@ module.exports = function (grunt) {
             flatten: true, 
             src: [configuration.paths.targetDirectories.work + '/index.html'], 
             dest: configuration.paths.fullDirectories.release 
+          }
+        ]
+      },
+      dvt: {
+        files: [
+          { 
+            expand: true, 
+            flatten: true, 
+            src: [configuration.paths.absoluteFiles.css.work.min], 
+            dest: configuration.paths.fullDirectories.dvt
+          },
+          { 
+            expand: true, 
+            flatten: true, 
+            src: [configuration.paths.absoluteFiles.js.work.min], 
+            dest: configuration.paths.fullDirectories.dvt 
+          },
+          { 
+            expand: true, 
+            flatten: true, 
+            src: [configuration.paths.fullDirectories.images + '/*.*'], 
+            dest: configuration.paths.absoluteFiles.images.dvt
+          },
+          { 
+            expand: true, 
+            flatten: true, 
+            src: [configuration.paths.targetDirectories.work + '/index.html'], 
+            dest: configuration.paths.fullDirectories.dvt 
           }
         ]
       }
@@ -249,7 +294,7 @@ module.exports = function (grunt) {
   // Installation complète HTML/CSS/JS
   grunt.registerTask("install", [
     // Vider le dossier de génération
-    "clean:generationDirectory",
+    "clean:dvtDirectory",
     // Vider le dossier de travail
     "clean:workDirectory",
     // Génération de apptemplates.js dans work avec tous les HTML
@@ -258,6 +303,40 @@ module.exports = function (grunt) {
     "less:compile",
     // Concaténation des JS de l'application dans application.js
     "concat:javascriptWork",
+    // Concaténation des librairies JS de l'application
+    "concat:javascriptLibs",
+    // Minification du fichier CSS général dans work
+    "cssmin:target",
+    // Minification des fichiers JS avec les librairies dans work
+    "uglify:target",
+    // Transformation du fichier HTML Debug
+    "htmlbuild:debug",
+    // On renomme le fichier en index-debug.html
+    "rename:indexWorkDebug",
+    // Transformation du fichier HTML
+    "htmlbuild:release",
+    // Copie des fichiers pour debug dans target
+    "copy:debug",
+    // Renommage du index-debug en index.html
+    "rename:indexDebug",
+    // Copie des fichiers de production dans dvt
+    "copy:dvt",
+    // Vider le dossier de travail
+    "clean:workDirectory"
+  ]);
+  
+  // Installation complète HTML/CSS/JS pour la production
+  grunt.registerTask("installprod", [
+    // Vider le dossier de génération
+    "clean:releaseDirectory",
+    // Vider le dossier de travail
+    "clean:workDirectory",
+    // Génération de apptemplates.js dans work avec tous les HTML
+    "ngtemplates:webapp",
+    // Génération de application.css dans work avec tous les LESS
+    "less:compile",
+    // Concaténation des JS de l'application dans application.js
+    "concat:javascriptWorkProd",
     // Concaténation des librairies JS de l'application
     "concat:javascriptLibs",
     // Minification du fichier CSS général dans work
