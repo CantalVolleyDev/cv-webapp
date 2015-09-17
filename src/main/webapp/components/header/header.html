@@ -8,15 +8,21 @@
   </div>
   <div class="menu">
     <div class="menu-item">
-      <a href="#home">
+      <a href="#home" class="enabled">
         <span><i class="cv-icon cv-icon-home"></i></span>
         Accueil
       </a>
     </div>
     <div class="menu-item">
-      <a href="#contacts">
+      <a href="#contacts" class="enabled">
         <span><i class="cv-icon cv-icon-tablet"></i></span>
         Contacts
+      </a>
+    </div>
+    <div class="menu-item">
+      <a href="#login" ng-class="{'enabled':accountService.promiseResolved()}">
+        <span><i class="cv-icon cv-icon-user"></i></span>
+        Mon compte
       </a>
     </div>
     <!--<div class="menu-item">

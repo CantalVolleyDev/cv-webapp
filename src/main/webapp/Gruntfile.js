@@ -21,7 +21,8 @@ module.exports = function (grunt) {
     librariesDependencyJS: [
       'node_modules/moment/min/moment-with-locales.min.js',
       'node_modules/angular/angular.min.js',
-      'node_modules/angular-route/angular-route.min.js'
+      'node_modules/angular-route/angular-route.min.js',
+      'node_modules/angular-cookies/angular-cookies.min.js'
     ]
   };
   
@@ -258,8 +259,9 @@ module.exports = function (grunt) {
           relative: true,
           scripts: {
             bundle: [
-              configuration.paths.targetDirectories.work + '/*.js',
-              '!' + configuration.paths.targetDirectories.work + '/*.min.js'
+              configuration.paths.absoluteFiles.js.work.libraries,
+              configuration.paths.absoluteFiles.js.work.full,
+              configuration.paths.absoluteFiles.js.work.templates
             ]
           },
           styles: {

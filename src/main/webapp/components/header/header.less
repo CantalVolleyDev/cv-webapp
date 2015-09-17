@@ -51,7 +51,6 @@
 
 .header .menu .menu-item {
   display: inline-block;
-  cursor: pointer;
   padding-left: 5px;
   padding-right: 5px;
   font-size: 25px;
@@ -64,16 +63,28 @@
 }
 
 .header .menu .menu-item a {
-  padding: @header-menu-item-padding;
   text-decoration: none;
-  color: @global-first-color;
+  padding: @header-menu-item-padding;
+  color: darkgray;
+  pointer-events: none;
 }
-
 .header .menu .menu-item a:hover {
+  cursor: default;
+}
+.header .menu .menu-item a span {
+  color: darkgray;
+}
+.header .menu .menu-item a.enabled,
+.header .menu .menu-item a.enabled span {
+  color: @global-first-color;
+  pointer-events: auto;
+}
+.header .menu .menu-item a.enabled:hover {
   background-color: @global-first-color;
   border-radius: 4px;
   color: @global-first-font-color;
+  cursor: pointer;
 }
-.header .menu .menu-item a:hover span {
+.header .menu .menu-item a.enabled:hover span {
   color: @global-first-font-color;
 }

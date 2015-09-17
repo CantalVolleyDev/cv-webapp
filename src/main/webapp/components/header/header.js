@@ -1,5 +1,9 @@
-app.directive('header', function() {
+app.directive('header', ['AccountService', function(AccountService) {
   return {
-    templateUrl: 'components/header/header.html'
+    templateUrl: 'components/header/header.html',
+    link: function(scope) {
+      scope.accountService = AccountService;
+      AccountService.load();
+    }
   };
-});
+}]);
