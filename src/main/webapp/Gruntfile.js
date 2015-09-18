@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
   
   var currentDate = Date.now();
   var configuration = {
@@ -16,13 +16,17 @@ module.exports = function (grunt) {
       appcss: 'application.css',
       releasejs: currentDate + '.min.js',
       releasecss: currentDate + '.min.css',
-      librariesjs: 'app-libraries.js'
+      librariesjs: 'app-libraries.js',
+      librariescss: 'app-libraries.css'
     },
     librariesDependencyJS: [
       'node_modules/moment/min/moment-with-locales.min.js',
       'node_modules/angular/angular.min.js',
       'node_modules/angular-route/angular-route.min.js',
       'node_modules/angular-cookies/angular-cookies.min.js'
+    ],
+    librariesDependencyCSS: [
+      'node_modules/bootstrap/dist/css/bootstrap.min.css'
     ]
   };
   
@@ -40,7 +44,8 @@ module.exports = function (grunt) {
     css: {
       work: {
         full: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.appcss,
-        min: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.releasecss
+        min: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.releasecss,
+        libraries: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.librariescss
       },
       target: {
         release: configuration.paths.fullDirectories.release + '/' + configuration.fileNames.releasecss,
@@ -63,15 +68,15 @@ module.exports = function (grunt) {
     }
   };
   
-	grunt.loadNpmTasks('grunt-html-build');
+  grunt.loadNpmTasks('grunt-html-build');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-rename');
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-rename');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -129,6 +134,10 @@ module.exports = function (grunt) {
         ],
         dest: configuration.paths.absoluteFiles.js.work.full
       },
+      cssLibs: {
+        src: [configuration.librariesDependencyCSS],
+        dest: configuration.paths.absoluteFiles.css.work.libraries
+      },
       javascriptLibs: {
         src: [configuration.librariesDependencyJS],
         dest: configuration.paths.absoluteFiles.js.work.libraries
@@ -137,13 +146,16 @@ module.exports = function (grunt) {
     cssmin: {
       target: {
         files: {
-          "<%= configurationObj.paths.absoluteFiles.css.work.min %>": [configuration.paths.absoluteFiles.css.work.full]
+          "<%= configurationObj.paths.absoluteFiles.css.work.min %>": [
+            configuration.paths.absoluteFiles.css.work.libraries,
+            configuration.paths.absoluteFiles.css.work.full
+          ]
         }
       }
     },
     copy: {
-			debug: {
-				files: [
+      debug: {
+        files: [
           { 
             expand: true, 
             flatten: true, 
@@ -151,7 +163,8 @@ module.exports = function (grunt) {
                  .concat(configuration.paths.absoluteFiles.js.work.libraries)
                  .concat(configuration.paths.absoluteFiles.js.work.full)
                  .concat(configuration.paths.absoluteFiles.js.work.templates)
-                 .concat(configuration.paths.targetDirectories.work + '/index-debug.html'),
+                 .concat(configuration.paths.targetDirectories.work + '/index-debug.html')
+                 .concat(configuration.paths.absoluteFiles.css.work.libraries),
             dest: configuration.paths.fullDirectories.debug
           }, 
           { 
@@ -161,7 +174,7 @@ module.exports = function (grunt) {
             dest: configuration.paths.absoluteFiles.images.debug 
           }
         ]
-			},
+      },
       release: {
         files: [
           { 
@@ -218,7 +231,7 @@ module.exports = function (grunt) {
           }
         ]
       }
-		},
+    },
     uglify: {
       options: {
         exportAll: true
@@ -276,21 +289,21 @@ module.exports = function (grunt) {
     rename: {
       indexWorkDebug: {
         files: [
-					{
+          {
             src: configuration.paths.targetDirectories.work + '/index.html', 
             dest: configuration.paths.targetDirectories.work + '/index-debug.html'
           }
-				]
-			},
+        ]
+      },
       indexDebug: {
         files: [
-					{
+          {
             src: configuration.paths.fullDirectories.debug + '/index-debug.html', 
             dest: configuration.paths.fullDirectories.debug + '/index.html'
           }
-				]
+        ]
       }
-		}
+    }
   });
   
   // Installation complète HTML/CSS/JS
@@ -307,6 +320,8 @@ module.exports = function (grunt) {
     "concat:javascriptWork",
     // Concaténation des librairies JS de l'application
     "concat:javascriptLibs",
+    // Concaténation des librairies CSS de l'application
+    "concat:cssLibs",
     // Minification du fichier CSS général dans work
     "cssmin:target",
     // Minification des fichiers JS avec les librairies dans work
@@ -341,6 +356,8 @@ module.exports = function (grunt) {
     "concat:javascriptWorkProd",
     // Concaténation des librairies JS de l'application
     "concat:javascriptLibs",
+    // Concaténation des librairies CSS de l'application
+    "concat:cssLibs",
     // Minification du fichier CSS général dans work
     "cssmin:target",
     // Minification des fichiers JS avec les librairies dans work
