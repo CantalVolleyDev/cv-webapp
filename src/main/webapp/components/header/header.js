@@ -3,7 +3,6 @@ app.directive('header', ['AccountService', function(AccountService) {
     templateUrl: 'components/header/header.html',
     link: function(scope) {
       scope.accountService = AccountService;
-      AccountService.load();
     }
   };
 }]);

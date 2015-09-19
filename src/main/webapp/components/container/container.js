@@ -17,7 +17,6 @@ app.directive('container', ['$http', 'DataService', function($http, DataService)
       // Creation d'une transclusion avec le scope de la directive et ajout
       // du contenu calculé dans le document (element data-list)
       transclude(scope, function(clone, scope) {
-        console.log(clone);
         angular.element(document.getElementsByClassName('data-list')).append(clone);
       });
 

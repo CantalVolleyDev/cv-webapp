@@ -1,5 +1,3 @@
-@import "variables";
-
 .home {
   
 }
@@ -29,11 +27,14 @@
 }
 
 .home .gallery {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: @data-container-padding - 5px;
   text-align: center;
 }
 
+.home .gallery div {
+  padding: 5px;
+}
+
 .home .gallery img {
-  width: 25%;
+  width: 100%;
 }

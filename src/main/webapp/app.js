@@ -15,7 +15,8 @@ app.config(['$routeProvider', function ($routeProvider) {
     controller: 'LoginCtrl'
   })
   .when('/account', {
-    templateUrl: 'routes/account/account.html'
+    templateUrl: 'routes/account/account.html',
+    controller: 'AccountCtrl'
   })
   /*.when('/championship', {
     templateUrl: 'routes/championship/championship.html',

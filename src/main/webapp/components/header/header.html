@@ -1,15 +1,52 @@
-<div class="header">
-  <div class="logo">
-    <!--<span><i class="cv-icon cv-icon-circle"></i></span>-->
-    Cantal<span>Volley</span>
-    <div class="logo-sub">
-      <span>Le volley pour tous!</span>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" 
+              data-toggle="collapse" data-target="#navbar-content" aria-expanded="false">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#home">
+        Cantal<span>Volley</span>
+        <div class="navbar-brand-subtitle">
+          <span>Le volley pour tous!</span>
+        </div>
+      </a>
     </div>
-  </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-content">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#home">
+            <span><i class="cv-icon cv-icon-home"></i></span>
+            Accueil
+          </a>
+        </li>
+        <li>
+          <a href="#contacts">
+            <span><i class="cv-icon cv-icon-tablet"></i></span> Contacts
+          </a>
+        </li>
+        <li>
+          <a href="#login">
+            <span><i class="cv-icon cv-icon-user"></i></span>
+            Mon compte
+          </a>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<!--<div class="header">
+
   <div class="menu">
     <div class="menu-item">
       <a href="#home" class="enabled">
-        <span><i class="cv-icon cv-icon-home"></i></span>
+        
         Accueil
       </a>
     </div>
@@ -21,15 +58,15 @@
     </div>
     <div class="menu-item">
       <a href="#login" ng-class="{'enabled':accountService.promiseResolved()}">
-        <span><i class="cv-icon cv-icon-user"></i></span>
+        
         Mon compte
       </a>
     </div>
-    <!--<div class="menu-item">
+    <div class="menu-item">
     <a href="#championship">Championnat 4/4</a>
     </div>
     <div class="menu-item">
       <a href="">Cantal Volley Tour</a>
-    </div>-->
+    </div>
   </div>
-</div>
+</div>-->
