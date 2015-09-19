@@ -1,6 +1,7 @@
 app.controller('AccountCtrl', ['$scope', 'AccountService', '$location', function ($scope, AccountService, $location) {
   $scope.account = {
-    loading: true
+    loading: true,
+    service: AccountService
   };
   $scope.disconnect = function () {
     AccountService.logout().then(function () {

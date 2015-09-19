@@ -4,6 +4,9 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
   var client;
   return {
     promise: promise.promise,
+    client: function() {
+      return client;
+    },
     promiseResolved: function() {
       return promiseResolved;
     },
@@ -36,7 +39,11 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
       }
       DataService.post('/user/retrieve').then(function (data) {
         promiseResolved = true;
-        client = data.data;
+        if (data.data === "") {
+          client = undefined;
+        } else {
+          client = data.data;  
+        }
         promise.resolve(data.data);
       }, function (data) {
         promiseResolved = true;

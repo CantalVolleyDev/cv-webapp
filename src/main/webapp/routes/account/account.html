@@ -1,1 +1,24 @@
-<button class="btn btn-primary" ng-click="disconnect()">Déconnexion</button>
+<div class="panel panel-primary myaccount-panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <span class="hidden-xs"><i class="cv-icon cv-icon-user"></i></span>
+      Bienvenue<span class="hidden-xs"> sur votre page d'accueil</span>, 
+      <strong>{{account.service.client().firstName}}</strong>
+      <strong>{{account.service.client().name}}</strong>
+      <i class="cv-icon cv-icon-times visible-xs pull-right clickable-item" ng-click="disconnect()"></i>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-10">
+        Description!
+      </div>
+      <div class="col-lg-2 text-center hidden-xs">
+        <button class="btn btn-primary btn-logout" ng-click="disconnect()">
+          <i class="cv-icon cv-icon-times"></i>
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
