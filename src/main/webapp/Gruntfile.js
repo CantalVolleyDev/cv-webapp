@@ -21,12 +21,16 @@ module.exports = function (grunt) {
     },
     librariesDependencyJS: [
       'node_modules/moment/min/moment-with-locales.min.js',
+      'node_modules/jquery/dist/jquery.min.js',
+      'node_modules/bootstrap/dist/js/bootstrap.min.js',
       'node_modules/angular/angular.min.js',
       'node_modules/angular-route/angular-route.min.js',
       'node_modules/angular-cookies/angular-cookies.min.js'
     ],
     librariesDependencyCSS: [
-      'node_modules/bootstrap/dist/css/bootstrap.min.css'
+    ],
+    librariesDependencyLESS: [
+      'node_modules/bootstrap/less/bootstrap.less'
     ]
   };
   
@@ -101,12 +105,7 @@ module.exports = function (grunt) {
     less: {
       compile: {
         files: {
-          "<%= configurationObj.paths.absoluteFiles.css.work.full %>": [
-            'variables.less', 
-            'global.less', 
-            configuration.paths.fullDirectories.components + '/**/*.less', 
-            configuration.paths.fullDirectories.routes + '/**/*.less'
-          ]
+          "<%= configurationObj.paths.absoluteFiles.css.work.full %>": 'app.less'
         }
       }
     },
@@ -119,6 +118,7 @@ module.exports = function (grunt) {
           'app.js', 
           configuration.paths.fullDirectories.services + '/*.js',
           '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlProd.js',
+          'apprun.js',
           configuration.paths.fullDirectories.components + '/**/*.js', 
           configuration.paths.fullDirectories.routes + '/**/*.js'
         ],
@@ -129,6 +129,7 @@ module.exports = function (grunt) {
           'app.js', 
           configuration.paths.fullDirectories.services + '/*.js',
           '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlDvt.js',
+          'apprun.js',
           configuration.paths.fullDirectories.components + '/**/*.js', 
           configuration.paths.fullDirectories.routes + '/**/*.js'
         ],

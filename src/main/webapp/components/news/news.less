@@ -1,8 +1,6 @@
-@import 'variables';
-
 .news-element {
-  width: calc(~"25% - "@news-element-padding*2);
-  display: inline-block;
+  /*width: calc(~"25% - "@news-element-padding*2);*/
+  /*display: inline-block;*/
   vertical-align: top;
   padding: @news-element-padding;
 }
@@ -14,21 +12,21 @@
 }
 
 .news img {
-  max-width: 100%;
+  width: 100%;
 }
 
 .news .category {
   position: absolute;
   top: 0 - (@news-category-height + @news-category-padding-top-bottom*2)/2;
   left: 20px;
-  height: @news-category-height;
-  background-color: deepskyblue;
+  /*height: @news-category-height; | Suppression pour bootstrap*/
+  background-color: @global-first-color;
   padding-top: @news-category-padding-top-bottom;
   padding-bottom: @news-category-padding-top-bottom;
   padding-right: 5px;
   padding-left: 5px;
   font-weight: bold;
-  color: white;
+  color: @global-first-font-color;
 }
 
 .news .publish-date,
