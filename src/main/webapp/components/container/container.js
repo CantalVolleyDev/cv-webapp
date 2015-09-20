@@ -5,31 +5,49 @@ app.directive('container', ['$http', 'DataService', function($http, DataService)
     scope: {
       emptyMessage: '@',
       errorMessage: '@',
-      route: '@'
+      route: '@',
+      contentData: '='
     },
     link: function(scope, element, attrs, ctrl, transclude) {
+      var withData = !angular.isUndefined(attrs.contentData);
       scope.dataLoading = true;
       scope.loadingError = false;
       scope.dataEmpty = false;
       scope.showData = false;
-      scope.data = [];
       scope.errorDetails = {};
+      
       // Creation d'une transclusion avec le scope de la directive et ajout
       // du contenu calculé dans le document (element data-list)
       transclude(scope, function(clone, scope) {
-        angular.element(document.getElementsByClassName('data-list')).append(clone);
+        var element = angular.element(document.getElementsByClassName('data-list'));
+        if (withData)
+          element.innerHTML = clone;
+        else 
+          element.append(clone);
       });
 
-      DataService.get(scope.route).then(function (result) {
-        scope.dataLoading = false;
-        scope.data = result.data;
-        scope.dataEmpty = (scope.data.length === 0);
-        scope.showData = !scope.dataEmpty;
-      }, function (errorResult) {
-        scope.dataLoading = false;
-        scope.loadingError = true;
-        scope.errorDetails = errorResult;
-      });
+      if (!withData) {
+        scope.data = [];
+        DataService.get(scope.route).then(function (result) {
+          scope.dataLoading = false;
+          scope.data = result;
+          scope.dataEmpty = (scope.data.length === 0);
+          scope.showData = !scope.dataEmpty;
+        }, function (errorResult) {
+          scope.dataLoading = false;
+          scope.loadingError = true;
+          scope.errorDetails = errorResult;
+        });
+      } else {
+        scope.$watch('contentData', function(value) {
+          scope.data = value;
+          scope.dataLoading = false;
+          if (!angular.isUndefined(value)) {
+            scope.dataEmpty = (value.length === 0);
+          }
+          scope.showData = !scope.dataEmpty;
+        });
+      }
     }
   };
 }]);

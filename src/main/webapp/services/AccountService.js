@@ -16,8 +16,8 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
     login: function(mail, password) {
       var defer = $q.defer();
       DataService.post('/user/login', {mail: mail, password: password}).then(function (data) {
-        client = data.data;
-        defer.resolve(data.data);
+        client = data;
+        defer.resolve(data);
       }, function (data) {
         defer.reject(data);
       });
@@ -27,7 +27,7 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
       var defer = $q.defer();
       DataService.post('/user/logout').then(function (data) {
         client = undefined;
-        defer.resolve(data.data);
+        defer.resolve(data);
       }, function (data) {
         defer.reject(data);
       });
@@ -39,12 +39,12 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
       }
       DataService.post('/user/retrieve').then(function (data) {
         promiseResolved = true;
-        if (data.data === "") {
+        if (data === "") {
           client = undefined;
         } else {
-          client = data.data;  
+          client = data;  
         }
-        promise.resolve(data.data);
+        promise.resolve(data);
       }, function (data) {
         promiseResolved = true;
         promise.reject(data);

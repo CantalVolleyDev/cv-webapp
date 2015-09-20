@@ -1,0 +1,24 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{title}}</h3>
+  </div>
+  <div class="panel-body match-list">
+    <container empty-message="Aucun match"
+               error-message="Erreur dans la recherche des matchs"
+               loading-message="Chargement des matchs"
+               content-data="data">
+      <div class="row match" ng-repeat="match in data">
+        <div class="text-center hidden-xs col-lg-2">{{match.display.shortDate}}</div>
+        <div class="text-center col-xs-5 col-lg-4"
+             ng-class="{'winner':match.display.firstWinner}">
+          {{match.firstTeam.label}}
+        </div>
+        <div class="text-center col-xs-2 col-lg-2">{{match.display.generalScore}}</div>
+        <div class="text-center col-xs-5 col-lg-4"
+             ng-class="{'winner':match.display.secondWinner}">
+          {{match.secondTeam.label}}
+        </div>
+      </div>
+    </container>
+  </div>
+</div>

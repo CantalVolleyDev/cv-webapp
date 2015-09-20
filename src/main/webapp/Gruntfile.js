@@ -7,7 +7,8 @@ module.exports = function (grunt) {
       targetDirectories: {
         final: '../../../target',
         work: 'grunt-work',
-        images: 'images'
+        images: 'images',
+        cache: 'grunt-cache'
       }
     },
     fileNames: {
@@ -17,7 +18,9 @@ module.exports = function (grunt) {
       releasejs: currentDate + '.min.js',
       releasecss: currentDate + '.min.css',
       librariesjs: 'app-libraries.js',
-      librariescss: 'app-libraries.css'
+      librariesminjs: 'app-libraries.min.js',
+      librariescss: 'app-libraries.css',
+      lodash: 'lodash.js'
     },
     librariesDependencyJS: [
       'node_modules/moment/min/moment-with-locales.min.js',
@@ -31,6 +34,9 @@ module.exports = function (grunt) {
     ],
     librariesDependencyLESS: [
       'node_modules/bootstrap/less/bootstrap.less'
+    ],
+    lodashFunctions: [
+      'filter', 'each'
     ]
   };
   
@@ -62,7 +68,13 @@ module.exports = function (grunt) {
         full: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.appjs,
         min: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.releasejs,
         libraries: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.librariesjs,
+        lodash: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.lodash,
         templates: configuration.paths.targetDirectories.work + '/' + configuration.fileNames.templates
+      },
+      cache: {
+        min: configuration.paths.targetDirectories.cache + '/' + configuration.fileNames.librariesminjs,
+        libraries: configuration.paths.targetDirectories.cache + '/' + configuration.fileNames.librariesjs,
+        lodash: configuration.paths.targetDirectories.cache + '/' + configuration.fileNames.lodash
       }
     },
     images: {
@@ -81,6 +93,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-lodash');
   
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -88,7 +101,8 @@ module.exports = function (grunt) {
     clean: {
       dvtDirectory: configuration.paths.fullDirectories.dvt,
       workDirectory: configuration.paths.targetDirectories.work,
-      releaseDirectory: configuration.paths.fullDirectories.release
+      releaseDirectory: configuration.paths.fullDirectories.release,
+      cacheDirectory: configuration.paths.targetDirectories.cache
     },
     ngtemplates: {
       webapp: {
@@ -109,6 +123,18 @@ module.exports = function (grunt) {
         }
       }
     },
+    lodash: {
+			build: {
+				dest: configuration.paths.absoluteFiles.js.cache.lodash,
+				options: {
+					modifier: 'modern',
+					include: configuration.lodashFunctions,
+					flags: [
+						'--production'
+					]
+				}
+			}
+		},
     concat: {
       options: {
         separator: ';\n'
@@ -141,7 +167,14 @@ module.exports = function (grunt) {
       },
       javascriptLibs: {
         src: [configuration.librariesDependencyJS],
-        dest: configuration.paths.absoluteFiles.js.work.libraries
+        dest: configuration.paths.absoluteFiles.js.cache.libraries
+      },
+      workWithLibraries: {
+        src: [
+          configuration.paths.absoluteFiles.js.cache.min,
+          configuration.paths.absoluteFiles.js.work.min
+        ],
+        dest: configuration.paths.absoluteFiles.js.work.min
       }
     },
     cssmin: {
@@ -161,7 +194,8 @@ module.exports = function (grunt) {
             expand: true, 
             flatten: true, 
             src: [configuration.paths.absoluteFiles.css.work.full]
-                 .concat(configuration.paths.absoluteFiles.js.work.libraries)
+                 .concat(configuration.paths.absoluteFiles.js.cache.lodash)
+                 .concat(configuration.paths.absoluteFiles.js.cache.libraries)
                  .concat(configuration.paths.absoluteFiles.js.work.full)
                  .concat(configuration.paths.absoluteFiles.js.work.templates)
                  .concat(configuration.paths.targetDirectories.work + '/index-debug.html')
@@ -173,6 +207,19 @@ module.exports = function (grunt) {
             flatten: true, 
             src: [configuration.paths.fullDirectories.images + '/*.*'], 
             dest: configuration.paths.absoluteFiles.images.debug 
+          }
+        ]
+      },
+      prepareDebug: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              configuration.paths.absoluteFiles.js.cache.libraries,
+              configuration.paths.absoluteFiles.js.cache.lodash
+            ],
+            dest: configuration.paths.targetDirectories.work
           }
         ]
       },
@@ -237,12 +284,18 @@ module.exports = function (grunt) {
       options: {
         exportAll: true
       },
+      libraries: {
+        files: {
+          "<%= configurationObj.paths.absoluteFiles.js.cache.min %>": [
+            configuration.paths.absoluteFiles.js.cache.libraries
+          ].concat(configuration.paths.absoluteFiles.js.cache.lodash)
+        }
+      },
       target: {
         files: {
           "<%= configurationObj.paths.absoluteFiles.js.work.min %>": [
-            configuration.paths.absoluteFiles.js.work.libraries
-          ].concat(configuration.paths.absoluteFiles.js.work.full)
-           .concat(configuration.paths.absoluteFiles.js.work.templates)
+            configuration.paths.absoluteFiles.js.work.full
+          ].concat(configuration.paths.absoluteFiles.js.work.templates)
         }
       }
     },
@@ -273,6 +326,7 @@ module.exports = function (grunt) {
           relative: true,
           scripts: {
             bundle: [
+              configuration.paths.absoluteFiles.js.work.lodash,
               configuration.paths.absoluteFiles.js.work.libraries,
               configuration.paths.absoluteFiles.js.work.full,
               configuration.paths.absoluteFiles.js.work.templates
@@ -308,7 +362,7 @@ module.exports = function (grunt) {
   });
   
   // Installation complète HTML/CSS/JS
-  grunt.registerTask("install", [
+  grunt.registerTask("quickinstall", [
     // Vider le dossier de génération
     "clean:dvtDirectory",
     // Vider le dossier de travail
@@ -319,14 +373,62 @@ module.exports = function (grunt) {
     "less:compile",
     // Concaténation des JS de l'application dans application.js
     "concat:javascriptWork",
-    // Concaténation des librairies JS de l'application
-    "concat:javascriptLibs",
     // Concaténation des librairies CSS de l'application
     "concat:cssLibs",
     // Minification du fichier CSS général dans work
     "cssmin:target",
     // Minification des fichiers JS avec les librairies dans work
     "uglify:target",
+    // Concaténation librairies et fichiers JS
+    "concat:workWithLibraries",
+    // Copie du fichier librairie en cache dans work
+    "copy:prepareDebug",
+    // Transformation du fichier HTML Debug
+    "htmlbuild:debug",
+    // On renomme le fichier en index-debug.html
+    "rename:indexWorkDebug",
+    // Transformation du fichier HTML
+    "htmlbuild:release",
+    // Copie des fichiers pour debug dans target
+    "copy:debug",
+    // Renommage du index-debug en index.html
+    "rename:indexDebug",
+    // Copie des fichiers de production dans dvt
+    "copy:dvt",
+    // Vider le dossier de travail
+    "clean:workDirectory"
+  ]);
+  
+  // Installation complète HTML/CSS/JS
+  grunt.registerTask("install", [
+    // Vider le dossier de génération
+    "clean:dvtDirectory",
+    // Vider le dossier de travail
+    "clean:workDirectory",
+    // Vider le cache
+    "clean:cacheDirectory",
+    // Génération de apptemplates.js dans work avec tous les HTML
+    "ngtemplates:webapp",
+    // Génération de application.css dans work avec tous les LESS
+    "less:compile",
+    // Génération de lodash
+    "lodash:build",
+    // Concaténation des JS de l'application dans application.js
+    "concat:javascriptWork",
+    // Concaténation des librairies JS de l'application
+    "concat:javascriptLibs",
+    // Concaténation des librairies CSS de l'application
+    "concat:cssLibs",
+    // Minification du fichier CSS général dans work
+    "cssmin:target",
+    // Minification des librairies
+    "uglify:libraries",
+    // Minification des fichiers JS avec les librairies dans work
+    "uglify:target",
+    // Concaténation librairies et fichiers JS
+    "concat:workWithLibraries",
+    // Copie du fichier librairie en cache dans work
+    "copy:prepareDebug",
     // Transformation du fichier HTML Debug
     "htmlbuild:debug",
     // On renomme le fichier en index-debug.html
@@ -349,10 +451,14 @@ module.exports = function (grunt) {
     "clean:releaseDirectory",
     // Vider le dossier de travail
     "clean:workDirectory",
+    // Vider le cache
+    "clean:cacheDirectory",
     // Génération de apptemplates.js dans work avec tous les HTML
     "ngtemplates:webapp",
     // Génération de application.css dans work avec tous les LESS
     "less:compile",
+    // Génération de lodash
+    "lodash:build",
     // Concaténation des JS de l'application dans application.js
     "concat:javascriptWorkProd",
     // Concaténation des librairies JS de l'application
@@ -361,8 +467,14 @@ module.exports = function (grunt) {
     "concat:cssLibs",
     // Minification du fichier CSS général dans work
     "cssmin:target",
+     // Minification des librairies
+    "uglify:libraries",
     // Minification des fichiers JS avec les librairies dans work
     "uglify:target",
+    // Concaténation librairies et fichiers JS
+    "concat:workWithLibraries",
+    // Copie du fichier librairie en cache dans work
+    "copy:prepareDebug",
     // Transformation du fichier HTML Debug
     "htmlbuild:debug",
     // On renomme le fichier en index-debug.html

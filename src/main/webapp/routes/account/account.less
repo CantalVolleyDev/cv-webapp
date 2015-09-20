@@ -1,6 +1,7 @@
 .myaccount-panel {
-  height: 100%; /* à calculer */
+  min-height: 100%; /* à calculer */
   border: none;
+  margin-bottom: 0px;
 }
 
 .myaccount-panel span .cv-icon {
@@ -9,4 +10,44 @@
 
 .myaccount-panel .btn-logout {
   width: 100%;
+}
+
+.myaccount-panel .user-infos {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.myaccount-panel .user-infos .user-name {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.myaccount-panel .user-infos i,
+.myaccount-panel .user-infos img {
+  border: solid 1px @global-second-color-darken;
+  margin-bottom: 10px;
+}
+
+.myaccount-panel .user-infos img {
+  width: 100%;
+}
+
+.myaccount-panel .user-infos i {
+  font-size: 150px;
+}
+
+.myaccount-panel .user-infos .user-teams {
+  margin-top: 10px;
+}
+
+@media (max-width: @screen-sm) {
+  .myaccount-panel .user-infos img {
+    width: 50%;
+  }
+}
+@media (max-width: @screen-sm) {
+  .match-panel-container {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
 }

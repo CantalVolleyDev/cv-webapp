@@ -1,23 +1,54 @@
-<div class="panel panel-primary myaccount-panel">
+<loader ng-show="account.loading"></loader>
+<div class="panel panel-primary myaccount-panel" ng-show="!account.loading">
   <div class="panel-heading">
     <h3 class="panel-title">
       <span class="hidden-xs"><i class="cv-icon cv-icon-user"></i></span>
       Bienvenue<span class="hidden-xs"> sur votre page d'accueil</span>, 
       <strong>{{account.service.client().firstName}}</strong>
       <strong>{{account.service.client().name}}</strong>
-      <i class="cv-icon cv-icon-times visible-xs pull-right clickable-item" ng-click="disconnect()"></i>
+      <div class="pull-right clickable-item" ng-click="disconnect()">
+        <i class="cv-icon cv-icon-times"></i>
+        <span class="hidden-xs">Déconnexion</span>
+      </div>
     </h3>
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-lg-10">
-        Description!
+      <div class="col-lg-2">
+        <div class="user-infos">
+          <i ng-show="!account.imageExists" class="cv-icon cv-icon-user"></i>
+          <img ng-show="account.imageExists" src="https://avatars0.githubusercontent.com/u/5709133?v=3&s=460">
+          <div class="user-name">
+            {{account.service.client().firstName}}
+            {{account.service.client().name}}
+          </div>
+          <div>
+            {{account.service.client().mail}}
+          </div>
+          <div class="user-teams">
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="teamPlayer in account.teams">
+                {{teamPlayer.team.label}}
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="col-lg-2 text-center hidden-xs">
-        <button class="btn btn-primary btn-logout" ng-click="disconnect()">
-          <i class="cv-icon cv-icon-times"></i>
-          Déconnexion
-        </button>
+      <div class="match-panel-container col-lg-5">
+        <match-panel title="Prochains matchs" data="account.sorted.nextMatchs"></match-panel>
+      </div>
+      <div class="match-panel-container col-lg-5">
+        <match-panel title="Derniers matchs" data="account.sorted.lastMatchs"></match-panel>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2">
+      </div>
+      <div class="match-panel-container col-lg-5">
+        <match-panel title="Matchs en retard" data="account.sorted.lateMatchs"></match-panel>
+      </div>
+      <div class="match-panel-container col-lg-5">
+        <match-panel title="Matchs saisis en attente" data="account.sorted.waitingMatchs"></match-panel>
       </div>
     </div>
   </div>

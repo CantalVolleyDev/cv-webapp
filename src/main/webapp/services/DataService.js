@@ -1,13 +1,29 @@
-app.factory('DataService', ['$http', 'dataServiceUrl', '$log', function ($http, dataServiceUrl, $log) {
+app.factory('DataService', ['$http', 'dataServiceUrl', '$log', '$q', function ($http, dataServiceUrl, $log, $q) {
   return {
     get: function(route) {
-      $log.info('GET ' + dataServiceUrl + route);
-      return $http.get(dataServiceUrl + route);
+      var defer = $q.defer();
+      var url = dataServiceUrl + route;
+      $log.info('GET ' + url);
+      var http = $http.get(url);
+      http.then(function (data) {
+        defer.resolve(data.data);
+      }, function (data) {
+        defer.reject(data);
+      });
+      return defer.promise;
     },
     post: function(route, parameters) {
-      $log.info('POST ' + dataServiceUrl + route);
-      $log.info(parameters);
-      return $http.post(dataServiceUrl + route, angular.toJson(parameters));
+      var defer = $q.defer();
+      var url = dataServiceUrl + route;
+      var params = angular.toJson(parameters);
+      $log.info('POST ' + url + ' | ' + params);
+      var http = $http.post(url, params);
+      http.then(function (data) {
+        defer.resolve(data.data);
+      }, function (data) {
+        defer.reject(data);
+      });
+      return defer.promise;
     }
   }
 }]);
