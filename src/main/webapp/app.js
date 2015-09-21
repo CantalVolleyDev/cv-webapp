@@ -18,6 +18,10 @@ app.config(['$routeProvider', function ($routeProvider) {
     templateUrl: 'routes/account/account.html',
     controller: 'AccountCtrl'
   })
+  .when('/score', {
+    templateUrl: 'routes/score/score.html',
+    controller: 'ScoreCtrl'
+  })
   /*.when('/championship', {
     templateUrl: 'routes/championship/championship.html',
     controller: 'ChampionshipController'

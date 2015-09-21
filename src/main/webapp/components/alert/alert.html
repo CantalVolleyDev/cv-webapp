@@ -1,0 +1,13 @@
+<div class="alert alert-danger">
+  <strong>Erreur {{error.status}}</strong> {{error.message}} 
+  <strong>
+    <i class="cv-icon clickable-item" data-toggle="collapse" 
+       data-target="#errorDetails" aria-expanded="false"
+       ng-class="{'cv-icon-angle-double-down': display.collapsed, 'cv-icon-angle-double-up': !display.collapsed}"
+       ng-click="display.collapsed=!display.collapsed">
+    </i>
+  </strong>
+  <div class="collapse" id="errorDetails">
+      {{error.data}}
+  </div>
+</div>

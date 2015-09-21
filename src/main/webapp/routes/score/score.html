@@ -1,0 +1,140 @@
+<loader ng-show="score.loading"></loader>
+<div class="panel panel-primary score-panel" ng-show="!score.loading">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Saisie des scores du match 
+    </h3>
+  </div>
+  <div class="panel-body">
+    <form>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                Etape 1 : <strong>Scores</strong>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <div class="text-justify">
+                Saisissez ci-dessous le score général du match.
+              </div>
+              <div class="row general-score-header">
+                <div class="text-center col-xs-6">
+                  <strong>Première équipe</strong>
+                </div>
+                <div class="text-center col-xs-6">
+                  <strong>Seconde équipe</strong>
+                </div>
+              </div>
+              <div class="row general-score">
+                <div class="col-xs-6">
+                  <input type="number" class="form-control" ng-model="score.fields.sc1"/>
+                </div>
+                <div class="col-xs-6">
+                  <input type="number" class="form-control" ng-model="score.fields.sc2"/>
+                </div>
+              </div>
+              <div class="text-justify">
+                Saisissez ensuite le détail des sets. Le nombre de champs de saisie
+                apparaîtra automatiquement ci-dessous en fonction du score général saisi.
+              </div>
+              <div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                </div>
+                <div class="row" ng-show="display4thSet()">
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                </div>
+                <div class="row" ng-show="display5thSet()">
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                Etape 2 : <strong>Joueurs</strong>
+              </h3>
+            </div>
+            <div class="panel-body players">
+              <div class="players-list opposite-players">
+                <div>Liste des joueurs de l'équipe adverse</div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value=""> Joueur
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value=""> Joueur2
+                  </label>
+                </div>
+              </div>
+              <div class="players-list">
+                <div>Liste des joueurs de <strong>mon équipe</strong></div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value=""> Joueur
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value=""> Joueur2
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                Etape 3 : <strong>Commentaires</strong>
+              </h3>
+            </div>
+            <div class="panel-body">
+              Commentaire
+              <textarea class="form-control" rows="4" placeholder="Saisissez votre commentaire sur le match"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

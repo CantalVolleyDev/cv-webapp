@@ -7,6 +7,7 @@ app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$loca
     sorted: {}
   };
   $scope.disconnect = function () {
+    $scope.account.loading = true;
     AccountService.logout().then(function () {
       $location.path('/login');
     });
