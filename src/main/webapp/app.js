@@ -18,7 +18,7 @@ app.config(['$routeProvider', function ($routeProvider) {
     templateUrl: 'routes/account/account.html',
     controller: 'AccountCtrl'
   })
-  .when('/score', {
+  .when('/score/:id', {
     templateUrl: 'routes/score/score.html',
     controller: 'ScoreCtrl'
   })

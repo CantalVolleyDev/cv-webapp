@@ -8,6 +8,11 @@
     </i>
   </strong>
   <div class="collapse" id="errorDetails">
-      {{error.data}}
+    Cause: <strong>{{error.data.cause.message}}</strong>
+    <div ng-repeat="trace in error.data.cause.stackTrace">
+      <i class="cv-icon cv-icon-angle-right"></i> 
+      {{trace.className.substring(0,trace.className.lastIndexOf('.'))}}.<strong>{{trace.fileName}}</strong> 
+      at line <strong>{{trace.lineNumber}}</strong>
+    </div>
   </div>
 </div>

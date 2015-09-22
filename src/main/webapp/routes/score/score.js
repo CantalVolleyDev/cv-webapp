@@ -1,21 +1,13 @@
-app.controller('ScoreCtrl', ['$scope', 'AccountService', '$location', function ($scope, AccountService, $location) {
-  $scope.score = {
-    loading: true,
-    fields: {sc1: 0, sc2: 0}
-  };
-  
-  $scope.display4thSet = function() {
-    return $scope.score.fields.sc1 + $scope.score.fields.sc2 > 3;
-  };
-  $scope.display5thSet = function() {
-    return $scope.score.fields.sc1 + $scope.score.fields.sc2 > 4;
-  };
-  
+app.controller('ScoreCtrl', ['$scope', 'DefaultDataCtrlProperties', 'AccountService', '$location', 'ScoreDisplayHelper', '$routeParams', 'DataService', function ($scope, DefaultDataCtrlProperties, AccountService, $location, ScoreDisplayHelper, $routeParams, DataService) {
+  $scope.score = angular.extend({service: ScoreDisplayHelper}, DefaultDataCtrlProperties);
   AccountService.promise.then(function () {
-    if (!AccountService.logged()) {
-      $location.path('/login');
-      return;
-    }
-    $scope.score.loading = false;
+    DataService.get('/matchs/' + $routeParams.id + '/submitInfos').then(function (data) {
+      $scope.score.data = data;
+      ScoreDisplayHelper.init(data);
+      $scope.score.loading = false;
+    }, function (data) {
+      $scope.score.errorData = data;
+      $scope.score.loading = false;
+    });
   });
 }]);

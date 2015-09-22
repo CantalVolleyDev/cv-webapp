@@ -1,5 +1,6 @@
+<alert ng-show="score.displayError()" error-data="score.errorData"></alert>
 <loader ng-show="score.loading"></loader>
-<div class="panel panel-primary score-panel" ng-show="!score.loading">
+<div class="panel panel-primary score-panel" ng-show="score.displayData(true)">
   <div class="panel-heading">
     <h3 class="panel-title">
       Saisie des scores du match 
@@ -21,18 +22,18 @@
               </div>
               <div class="row general-score-header">
                 <div class="text-center col-xs-6">
-                  <strong>Première équipe</strong>
+                  <strong>{{score.data.match.firstTeam.label}}</strong>
                 </div>
                 <div class="text-center col-xs-6">
-                  <strong>Seconde équipe</strong>
+                  <strong>{{score.data.match.secondTeam.label}}</strong>
                 </div>
               </div>
               <div class="row general-score">
                 <div class="col-xs-6">
-                  <input type="number" class="form-control" ng-model="score.fields.sc1"/>
+                  <input type="number" class="form-control" ng-model="score.data.match.sc1"/>
                 </div>
                 <div class="col-xs-6">
-                  <input type="number" class="form-control" ng-model="score.fields.sc2"/>
+                  <input type="number" class="form-control" ng-model="score.data.match.sc2"/>
                 </div>
               </div>
               <div class="text-justify">
@@ -42,42 +43,42 @@
               <div>
                 <div class="row">
                   <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
+                    <input type="number" class="form-control" ng-model="score.data.match.s11"/>
                   </div>
                   <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
-                  </div>
-                  <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
+                    <input type="number" class="form-control" ng-model="score.data.match.s12"/>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
+                    <input type="number" class="form-control" ng-model="score.data.match.s21"/>
                   </div>
                   <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
-                  </div>
-                </div>
-                <div class="row" ng-show="display4thSet()">
-                  <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
-                  </div>
-                  <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
+                    <input type="number" class="form-control" ng-model="score.data.match.s22"/>
                   </div>
                 </div>
-                <div class="row" ng-show="display5thSet()">
+                <div class="row">
                   <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
+                    <input type="number" class="form-control" ng-model="score.data.match.s31"/>
                   </div>
                   <div class="col-xs-6">
-                    <input type="number" class="form-control"/>
+                    <input type="number" class="form-control" ng-model="score.data.match.s32"/>
+                  </div>
+                </div>
+                <div class="row" ng-show="score.service.display4thSet()">
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control" ng-model="score.data.match.s41"/>
+                  </div>
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control" ng-model="score.data.match.s42"/>
+                  </div>
+                </div>
+                <div class="row" ng-show="score.service.display5thSet()">
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control" ng-model="score.data.match.s51"/>
+                  </div>
+                  <div class="col-xs-6">
+                    <input type="number" class="form-control" ng-model="score.data.match.s52"/>
                   </div>
                 </div>
               </div>
@@ -92,29 +93,27 @@
               </h3>
             </div>
             <div class="panel-body players">
-              <div class="players-list opposite-players">
-                <div>Liste des joueurs de l'équipe adverse</div>
-                <div class="checkbox">
+              <div class="players-list"
+                   ng-class="{'opposite-players':!score.service.isUserTeam(score.data.match.firstTeam.identifier)}">
+                <div>Liste des joueurs de l'équipe à domicile</div>
+                <div class="checkbox" ng-repeat="player in score.data.firstTeamPlayers">
                   <label>
-                    <input type="checkbox" value=""> Joueur
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" value=""> Joueur2
+                    <input type="checkbox" value=""
+                           ng-disabled="!score.service.isUserTeam(player.team.identifier)"
+                           ng-checked="score.service.isUserInMatch(player.team.identifier, player.player.identifier)"> 
+                    {{player.player.firstName}} {{player.player.name}}
                   </label>
                 </div>
               </div>
-              <div class="players-list">
-                <div>Liste des joueurs de <strong>mon équipe</strong></div>
-                <div class="checkbox">
+              <div class="players-list" 
+                   ng-class="{'opposite-players':!score.service.isUserTeam(score.data.match.secondTeam.identifier)}">
+                <div>Liste des joueurs de l'équipe à l'extérieur</div>
+                <div class="checkbox" ng-repeat="player in score.data.secondTeamPlayers">
                   <label>
-                    <input type="checkbox" value=""> Joueur
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" value=""> Joueur2
+                    <input type="checkbox" value=""
+                           ng-disabled="!score.service.isUserTeam(player.team.identifier)"
+                           ng-checked="score.service.isUserInMatch(player.team.identifier, player.player.identifier)"> 
+                    {{player.player.firstName}} {{player.player.name}}
                   </label>
                 </div>
               </div>
@@ -129,9 +128,19 @@
               </h3>
             </div>
             <div class="panel-body">
-              Commentaire
+              Les commentaires seront visibles sur la feuille de match.
               <textarea class="form-control" rows="4" placeholder="Saisissez votre commentaire sur le match"></textarea>
             </div>
+          </div>
+          <div class="text-justify">
+            Deux possibilités pour valider : Validez votre score simplement et attendez la confirmation de l'équipe
+            adverse, ou demandez à votre adversaire de confirmer directement après avoir joué le match, grâce à la seconde option.
+            En choisissant cette dernière, un mot de passe sera demandé à un membre de l'équipe adverse, et il pourra 
+            ensuite valider en direct.
+          </div>
+          <div class="row">
+            <button class="col-lg-12 col-xs-12 btn btn-warning btn-valid">Valider</button>
+            <button class="col-lg-12 col-xs-12 btn btn-warning btn-valid">Valider et confirmation adverse</button>
           </div>
         </div>
       </div>
