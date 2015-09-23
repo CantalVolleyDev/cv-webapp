@@ -2,7 +2,14 @@ var app = angular.module('cv-webapp', ['ngRoute', 'ngCookies']);
 
 moment.locale('fr');
 
-app.config(['$routeProvider', function ($routeProvider) {
+app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
+  $provide.decorator('$exceptionHandler', ['JSErrorService', '$delegate', function(JSErrorService, $delegate) {
+    return function(exception, cause) {
+      JSErrorService.init(exception, cause);
+      $delegate(exception, cause);
+    };
+  }]);
+  
   $routeProvider
   .when('/', {
     templateUrl: 'routes/home/home.html'
@@ -30,3 +37,9 @@ app.config(['$routeProvider', function ($routeProvider) {
     redirectTo: '/'
   });
 }]);
+  
+app.controller('GlobalCtrl', ['$scope', 'JSErrorService', function($scope, JSErrorService) {
+  $scope.global = {
+    errorService: JSErrorService
+  };
+}])

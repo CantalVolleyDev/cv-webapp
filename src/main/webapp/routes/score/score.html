@@ -1,6 +1,6 @@
 <alert ng-show="score.displayError()" error-data="score.errorData"></alert>
 <loader ng-show="score.loading"></loader>
-<div class="panel panel-primary score-panel" ng-show="score.displayData(true)">
+<div class="panel panel-primary score-panel" ng-show="score.displayData()">
   <div class="panel-heading">
     <h3 class="panel-title">
       Saisie des scores du match 
@@ -100,7 +100,8 @@
                   <label>
                     <input type="checkbox" value=""
                            ng-disabled="!score.service.isUserTeam(player.team.identifier)"
-                           ng-checked="score.service.isUserInMatch(player.team.identifier, player.player.identifier)"> 
+                           ng-checked="score.service.isUserInMatch(player.team.identifier, player.player.identifier)"
+                           ng-click="score.updateMatchPlayer(player.team.identifier, player.player.identifier)"> 
                     {{player.player.firstName}} {{player.player.name}}
                   </label>
                 </div>
@@ -112,7 +113,8 @@
                   <label>
                     <input type="checkbox" value=""
                            ng-disabled="!score.service.isUserTeam(player.team.identifier)"
-                           ng-checked="score.service.isUserInMatch(player.team.identifier, player.player.identifier)"> 
+                           ng-checked="score.service.isUserInMatch(player.team.identifier, player.player.identifier)"
+                           ng-click="score.updateMatchPlayer(player.team.identifier, player.player.identifier)"> 
                     {{player.player.firstName}} {{player.player.name}}
                   </label>
                 </div>
@@ -139,8 +141,8 @@
             ensuite valider en direct.
           </div>
           <div class="row">
-            <button class="col-lg-12 col-xs-12 btn btn-warning btn-valid">Valider</button>
-            <button class="col-lg-12 col-xs-12 btn btn-warning btn-valid">Valider et confirmation adverse</button>
+            <button class="col-lg-12 col-xs-12 btn btn-warning btn-valid" ng-click="score.submit(false)">Valider</button>
+            <button class="col-lg-12 col-xs-12 btn btn-warning btn-valid" ng-click="score.submit(true)">Valider et confirmation adverse</button>
           </div>
         </div>
       </div>

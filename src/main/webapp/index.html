@@ -8,8 +8,9 @@
     <!-- build:style bundle -->
 		<!-- /build -->
 	</head>
-	<body>
+	<body ng-controller="GlobalCtrl">
     <header></header>
+    <alert ng-show="global.errorService.error" error-data="global.errorService.transformedError"></alert>
 		<div class="page-view" ng-view></div>
     <footer></footer>
     <!-- build:script bundle -->

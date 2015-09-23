@@ -2,12 +2,12 @@
   <strong>Erreur {{error.status}}</strong> {{error.message}} 
   <strong>
     <i class="cv-icon clickable-item" data-toggle="collapse" 
-       data-target="#errorDetails" aria-expanded="false"
+       data-target=".alert-error-details" aria-expanded="false"
        ng-class="{'cv-icon-angle-double-down': display.collapsed, 'cv-icon-angle-double-up': !display.collapsed}"
        ng-click="display.collapsed=!display.collapsed">
     </i>
   </strong>
-  <div class="collapse" id="errorDetails">
+  <div class="alert-error-details collapse">
     Cause: <strong>{{error.data.cause.message}}</strong>
     <div ng-repeat="trace in error.data.cause.stackTrace">
       <i class="cv-icon cv-icon-angle-right"></i> 

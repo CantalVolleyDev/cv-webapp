@@ -16,13 +16,13 @@ app.factory('ScoreDisplayHelper', function() {
     isUserInMatch: function(teamId, userId) {
       if (this.initialized) {
         if (this.data.match.firstTeam.identifier == teamId) {
-          return _.filter(this.data.firstTeamMatchPlayers, function(player) {
+          return _.find(this.data.firstTeamMatchPlayers, function(player) {
             return player.player.identifier === userId;
-          }).length > 0;
+          });
         } else {
-          return _.filter(this.data.secondTeamMatchPlayers, function(player) {
+          return _.find(this.data.secondTeamMatchPlayers, function(player) {
             return player.player.identifier === userId;
-          }).length > 0;
+          });
         }
       }
       return false;
