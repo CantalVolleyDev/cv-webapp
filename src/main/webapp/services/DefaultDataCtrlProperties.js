@@ -2,6 +2,8 @@ app.value('DefaultDataCtrlProperties', {
   loading: true,
   data: [],
   fields: {},
+  errorData: undefined, 
+  submitSuccessMessage: undefined,
   dataIsNotEmpty: function() {
     return angular.isArray(this.data) && this.data.length !== 0;
   },

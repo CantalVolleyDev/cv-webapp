@@ -7,7 +7,8 @@
                error-message="Erreur dans la recherche des matchs"
                loading-message="Chargement des matchs"
                content-data="data">
-      <div class="row match" ng-repeat="match in data">
+      <div class="row match" ng-repeat="match in data"
+           ng-click="matchClick(match)">
         <div class="text-center hidden-xs col-lg-2">{{match.display.shortDate}}</div>
         <div class="text-center col-xs-5 col-lg-4"
              ng-class="{'winner':match.display.firstWinner}">

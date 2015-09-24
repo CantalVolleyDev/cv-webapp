@@ -25,8 +25,10 @@ app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$loca
       var scoreWriter = function(match) {
         if (match.state === 'F') {
           return 'Forfait';
-        } else {
+        } else if (match.state == 'V' || match.state == 'S') {
           return match.sc1 + '/' + match.sc2;
+        } else {
+          return '-';
         }
       };
       _.each($scope.account.matchs, function (match) {

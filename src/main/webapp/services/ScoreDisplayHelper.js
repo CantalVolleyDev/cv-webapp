@@ -26,6 +26,9 @@ app.factory('ScoreDisplayHelper', function() {
         }
       }
       return false;
+    },
+    isScoreEnabled: function() {
+      return this.initialized && this.data.match.state !== 'S' && this.data.match.state !== 'R';
     }
   };
 });
