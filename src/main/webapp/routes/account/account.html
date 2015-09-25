@@ -32,20 +32,22 @@
               </li>
             </ul>
           </div>
+          <div class="help">
+            Aide
+            <a href="#help/score" class="btn btn-sm btn-warning">Comment saisir un score?</a>
+          </div>
         </div>
       </div>
       <div class="match-panel-container col-lg-5">
+        <match-panel title="Matchs en attente de validation" data="account.sorted.waitingValidationMatchs"
+                     important="true"></match-panel>
+      </div>
+      <div class="match-panel-container col-lg-5">
+        <match-panel title="Matchs en retard (Référence : Date d'aujourd'hui)" data="account.sorted.lateMatchs"
+                     important="true"></match-panel>
+      </div>
+      <div class="match-panel-container col-lg-5">
         <match-panel title="Prochains matchs" data="account.sorted.nextMatchs"></match-panel>
-      </div>
-      <div class="match-panel-container col-lg-5">
-        <match-panel title="Derniers matchs" data="account.sorted.lastMatchs"></match-panel>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-2">
-      </div>
-      <div class="match-panel-container col-lg-5">
-        <match-panel title="Matchs en retard" data="account.sorted.lateMatchs"></match-panel>
       </div>
       <div class="match-panel-container col-lg-5">
         <match-panel title="Matchs saisis en attente" data="account.sorted.waitingMatchs"></match-panel>

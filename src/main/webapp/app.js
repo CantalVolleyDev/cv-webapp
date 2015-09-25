@@ -29,10 +29,14 @@ app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
     templateUrl: 'routes/score/score.html',
     controller: 'ScoreCtrl'
   })
-  /*.when('/championship', {
+  .when('/help/:category', {
+    templateUrl: 'routes/help/help.html',
+    controller: 'HelpCtrl'
+  })
+  .when('/championship', {
     templateUrl: 'routes/championship/championship.html',
-    controller: 'ChampionshipController'
-  })*/
+    controller: 'ChampionshipCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

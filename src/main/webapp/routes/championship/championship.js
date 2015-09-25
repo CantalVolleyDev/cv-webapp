@@ -1,4 +1,32 @@
-var ChampionshipController = function ($scope, $timeout) {
+app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'DataService', function($scope, DefaultDataCtrlProperties, DataService) {
+  $scope.championship = angular.extend({}, DefaultDataCtrlProperties, {
+    changeCurrentCompetition: function(competition) {
+      $scope.championship.currentCompetition = competition;
+      if (competition.championships.length > 0) {
+        if (competition.championships.length === 1) {
+          this.changeCurrentChampionship(competition.championships[0]);
+        }
+      }
+    },
+    changeCurrentChampionship: function(championship) {
+      var identifier = championship.identifier;
+      $scope.championship.loadingChampionship = true;
+      DataService.get('/championships/' + identifier + '/rankings').then(function (data) {
+        $scope.championship.currentChampionship = data;
+        $scope.championship.loadingChampionship = false;
+      });
+    }
+  });
+  DataService.get('/competitions?season=current&fillChampionships=true').then(function (data) {
+    $scope.championship.data = data;
+    if ($scope.championship.dataIsNotEmpty()) {
+      $scope.championship.changeCurrentCompetition($scope.championship.data[0]);
+    }
+    $scope.championship.loading = false;
+  });
+}]);
+
+/*var ChampionshipController = function ($scope, $timeout) {
   $scope.championship = {
     dataLoading: true,
     teams: [
@@ -124,4 +152,4 @@ var ChampionshipController = function ($scope, $timeout) {
   }, 2000);
 };
 
-app.controller('ChampionshipController', ['$scope', '$timeout', ChampionshipController]);
+app.controller('ChampionshipController', ['$scope', '$timeout', ChampionshipController]);*/

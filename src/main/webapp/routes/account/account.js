@@ -4,6 +4,7 @@ app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$loca
     service: AccountService,
     matchs: [],
     teams: [],
+    teamIds: [],
     sorted: {}
   };
   $scope.disconnect = function () {
@@ -25,12 +26,16 @@ app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$loca
       var scoreWriter = function(match) {
         if (match.state === 'F') {
           return 'Forfait';
-        } else if (match.state == 'V' || match.state == 'S') {
+        } else if (match.state == 'V' || match.state == 'S' || match.state == 'R') {
           return match.sc1 + '/' + match.sc2;
         } else {
           return '-';
         }
       };
+      $scope.account.teamIds = [];
+      _.each($scope.account.teams, function (team) {
+        $scope.account.teamIds.push(team.team.identifier);
+      });
       _.each($scope.account.matchs, function (match) {
         var momentDate = moment(match.date);
         var played = (match.stamat !== 'C');
@@ -45,14 +50,16 @@ app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$loca
       $scope.account.sorted.nextMatchs = _.filter($scope.account.matchs, function (match) {
         return now.isBefore(match.display.momentDate) && match.state === 'C';
       });
-      $scope.account.sorted.lastMatchs = _.filter($scope.account.matchs, function (match) {
-        return match.state === 'V';
+      $scope.account.sorted.waitingValidationMatchs = _.filter($scope.account.matchs, function (match) {
+        return (match.state === 'S' || match.state === 'R') && 
+                $scope.account.teamIds.indexOf(match.scoreSettingTeam.identifier) === -1;
       });
       $scope.account.sorted.lateMatchs = _.filter($scope.account.matchs, function (match) {
         return now.isAfter(match.display.momentDate) && match.state === 'C';
       });
       $scope.account.sorted.waitingMatchs = _.filter($scope.account.matchs, function (match) {
-        return match.state === 'S';
+        return (match.state === 'S' || match.state === 'R') && 
+                $scope.account.teamIds.indexOf(match.scoreSettingTeam.identifier) !== -1;
       });
       $scope.account.loading = false;
     });

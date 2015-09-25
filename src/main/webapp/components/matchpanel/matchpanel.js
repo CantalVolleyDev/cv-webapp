@@ -3,7 +3,8 @@ app.directive('matchPanel', ['$location', function($location) {
     templateUrl: 'components/matchpanel/matchpanel.html',
     scope: {
       title: '@',
-      data: '='
+      data: '=',
+      important: '='
     },
     link: function(scope) {
       scope.matchClick = function(match) {

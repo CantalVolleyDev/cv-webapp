@@ -2,6 +2,8 @@ app.factory('ScoreDisplayHelper', function() {
   return {
     init: function(data) {
       this.data = data;
+      this.enableScoreFlag = false;
+      this.enableScoreFlag = this.isScoreEnabled();
       this.initialized = true;
     },
     display4thSet: function() {
@@ -28,7 +30,22 @@ app.factory('ScoreDisplayHelper', function() {
       return false;
     },
     isScoreEnabled: function() {
-      return this.initialized && this.data.match.state !== 'S' && this.data.match.state !== 'R';
+      return this.initialized && ((this.data.match.state !== 'S' && this.data.match.state !== 'R') || this.enableScoreFlag);
+    },
+    displayRefuse: function() {
+      return this.initialized && this.data.match.state !== 'C';
+    },
+    getRefuseLabel: function() {
+      if (!this.initialized)
+        return "";
+      if (this.displayRefuse() && this.isScoreEnabled()) {
+        return "Modifiez maintenant le score puis validez";
+      } else {
+        return "Refuser le score";
+      }
+    },
+    displayValidAndConfirm: function() {
+      return this.initialized && this.data.match.state === 'C';
     }
   };
 });

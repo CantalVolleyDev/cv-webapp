@@ -1,0 +1,47 @@
+<div class="panel panel-primary help-panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <i class="cv-icon cv-icon-lightbulb-o"></i>
+      Aide générale du site web
+    </h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-3">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="helpElm in help.categories"
+              ng-class="{'current': help.isCurrent(helpElm)}"
+              ng-click="help.changeCurrent(helpElm)">
+            <i class="cv-icon" ng-class="{'cv-icon-folder-o': !help.isCurrent(helpElm), 
+                                          'cv-icon-folder-open-o': help.isCurrent(helpElm)}"></i>
+            {{helpElm.title}}
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-9 content">
+        <h3 class="title">{{help.category.title}}</h3>
+        <div ng-show="help.isCurrent('connect')">
+          <div class="row">
+            <div class="col-lg-9 help-text">
+              <div>
+                Pour se connecter à votre compte sur CantalVolley.fr, sélectionnez l'icône Mon Compte (affiché dans la capture présente ci-contre), pour arriver sur la page de connexion. Cette icône est accessible dans la barre de navigation principale du site (partie supérieure).
+              </div>
+              <div>
+                Si vous êtes un participant du championnat 4x4, vos identifiants vous seront transmis par e-mail, pour ceux qui l'auront fourni au moment de l'inscription. Pour les autres, il vous suffira de créer un compte sur le site avec votre adresse e-mail, et de demander le rattachement à un joueur du championnat.
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="figure-image">
+                <div><img src="images/help-connect-1.png"></div>
+                <div><span>Fig. 1 - Icône "Mon compte"</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-show="help.isCurrent('score')">
+          Aide score
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

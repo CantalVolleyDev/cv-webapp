@@ -2,15 +2,16 @@ app.controller('ScoreCtrl', ['$scope', 'DefaultDataCtrlProperties', 'AccountServ
   $scope.score = angular.extend({}, DefaultDataCtrlProperties, {
     errorDataSubmit: false,
     service: ScoreDisplayHelper,
-    enableScoreFlag: true,
     updateMatchPlayer: function(teamId, playerId) {
       var array = $scope.score.data.firstTeamMatchPlayers;
+      var arrayPlayers = $scope.score.data.firstTeamPlayers;
       var team = angular.extend({}, $scope.score.data.match.firstTeam);
       if (teamId === $scope.score.data.match.secondTeam.identifier) {
         array = $scope.score.data.secondTeamMatchPlayers;
+        arrayPlayers = $scope.score.data.secondTeamPlayers;
         team = angular.extend({}, $scope.score.data.match.secondTeam);
       }
-      var player = angular.extend({}, _.find($scope.score.data.firstTeamPlayers, function (player) {
+      var player = angular.extend({}, _.find(arrayPlayers, function (player) {
         return playerId === player.player.identifier;
       }));
       if ($scope.score.service.isUserInMatch(teamId, playerId)) {
@@ -34,35 +35,36 @@ app.controller('ScoreCtrl', ['$scope', 'DefaultDataCtrlProperties', 'AccountServ
         match: self.data.match,
         firstTeamMatchPlayers: self.data.firstTeamMatchPlayers,
         secondTeamMatchPlayers: self.data.secondTeamMatchPlayers,
-        userTeams: self.data.userTeams
+        userTeams: self.data.userTeams,
+        submitterComment: self.data.submitterComment
       };
-      var message;
+      var saveInfos = {
+        matchState: matchInfos.match.state
+      };
       if (self.data.userTeams.length === 2) {
         matchInfos.match.state === 'V';
-        message = "Match validé avec succès.";
       } else {
-        if (matchInfos.match.state === 'C' || matchInfos.match.state === 'R') {
+        if (matchInfos.match.state === 'C') {
           matchInfos.match.state = 'S';
-          message = "Score du match saisi avec succès : Le match sera validé lorsque l'équipe adverse aura confirmé le score.";
-          matchInfos.match.scoreSetter = {
-            identifier: self.data.userTeams[0];
-          };
-        } else if (matchInfos.match.state === 'S') {
-          matchInfos.match.state = 'V';
-          message = "Match validé avec succès.";
+        } else if (matchInfos.match.state === 'S' || matchInfos.match.state === 'R') {
+          if (ScoreDisplayHelper.enableScoreFlag)
+            matchInfos.match.state = 'R';
+          else
+            matchInfos.match.state = 'V';
         }
       }
       DataService.post('/matchs/' + $routeParams.id + '/submit', matchInfos).then(function (data) {
-        self.submitSuccessMessage = message;
+        self.submitSuccessMessage = "Match validé avec succès.";
         self.loading = false;
       }, function (data) {
         self.errorData = data;
         self.errorDataSubmit = true;
         self.loading = false;
+        self.data.match.state = saveInfos.matchState;
       });
     },
     refuse: function() {
-      this.enableScoreFlag = true;
+      ScoreDisplayHelper.enableScoreFlag = true;
     },
     displayData: function(strict) {
       if (this.loading || (this.displayError() && !this.errorDataSubmit) || this.displaySuccess())
@@ -73,16 +75,12 @@ app.controller('ScoreCtrl', ['$scope', 'DefaultDataCtrlProperties', 'AccountServ
       if (this.loading || this.displayError() || angular.isUndefined($scope.score.submitSuccessMessage))
         return false;
       return true;
-    },
-    isScoreEnabled: function() {
-      return (this.service.isScoreEnabled() && this.enableScoreFlag);
     }
   });
   AccountService.promise.then(function () {
     DataService.get('/matchs/' + $routeParams.id + '/submitInfos').then(function (data) {
       $scope.score.data = data;
       ScoreDisplayHelper.init(data);
-      $scope.score.enableScoreFlag = ScoreDisplayHelper.isScoreEnabled();
       $scope.score.loading = false;
     }, function (data) {
       $scope.score.errorData = data;
