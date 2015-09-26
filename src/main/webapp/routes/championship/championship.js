@@ -1,4 +1,4 @@
-app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'DataService', function($scope, DefaultDataCtrlProperties, DataService) {
+app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'DataService', 'MatchDataFormatter', function($scope, DefaultDataCtrlProperties, DataService, MatchDataFormatter) {
   $scope.championship = angular.extend({}, DefaultDataCtrlProperties, {
     changeCurrentCompetition: function(competition) {
       $scope.championship.currentCompetition = competition;
@@ -13,6 +13,10 @@ app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'Data
       $scope.championship.loadingChampionship = true;
       DataService.get('/championships/' + identifier + '/rankings').then(function (data) {
         $scope.championship.currentChampionship = data;
+        MatchDataFormatter.formatList($scope.championship.currentChampionship.matchs);
+        $scope.championship.currentChampionship.matchsByDays = _.groupBy(data.matchs, function(m) {
+          return m.step;
+        });
         $scope.championship.loadingChampionship = false;
       });
     }

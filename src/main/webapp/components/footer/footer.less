@@ -1,16 +1,11 @@
 .footer {
-  padding-top: (@footer-max-height - @footer-min-height) / 2;
-  padding-bottom: (@footer-max-height - @footer-min-height) / 2;
   background-color: @global-first-color;
   text-align: center;
   color: @global-first-font-color;
   font-size: @laptop-font-size;
-  /*height: @footer-min-height; | Suppression pour bootstrap*/
-}
-
-.footer img {
-  /* 4px compensation du décalage de l'image et du texte : Sinon décalage vers le bas : ?? */
-  height: @footer-min-height - 4px;
+  height: @footer-height;
+  line-height: @footer-height;
+  vertical-align: middle;
 }
 
 .footer a,

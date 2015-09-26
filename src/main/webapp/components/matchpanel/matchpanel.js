@@ -4,11 +4,17 @@ app.directive('matchPanel', ['$location', function($location) {
     scope: {
       title: '@',
       data: '=',
-      important: '='
+      important: '=',
+      showDetails: '=',
+      openDetails: '='
     },
     link: function(scope) {
       scope.matchClick = function(match) {
-        $location.path('/score/' + match.identifier);
+        if (scope.openDetails) {
+          $location.path('/match/' + match.identifier);
+        } else {
+          $location.path('/score/' + match.identifier);
+        }
       };
     }
   };

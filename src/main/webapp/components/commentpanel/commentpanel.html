@@ -1,0 +1,34 @@
+<div class="panel panel-primary comment-panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">Commentaires</h3>
+  </div>
+  <div class="panel-body comment">
+    <container empty-message="Aucun commentaire"
+               error-message="Erreur dans la recherche des commentaires"
+               loading-message="Chargement des commentaires"
+               content-data="data">
+      <div class="row" ng-repeat="comment in data">
+        <div class="col-lg-2 col-xs-2 logo">
+          <img src="images/userSmall1.png">
+        </div>
+        <div class="col-lg-10 col-xs-10 content">
+          <div>
+            <span class="author">{{comment.user.firstName}} {{comment.user.name}}</span>
+            <span class="date"></span>
+          </div>
+          <div class="text-justify">
+            {{comment.content}}
+          </div>
+        </div>
+      </div>
+      <loader ng-show="loadingComments"></loader>
+      <alert ng-show="!loadingComments && errorData" error-data="errorData"></alert>
+    </container>
+    <form class="new-comment" ng-submit="submitComment()">
+      <textarea class="form-control" rows="3" placeholder="{{commentLabel}}" ng-model="currentComment"
+                ng-disabled="!accountService.logged()"></textarea>
+      <button class="btn btn-warning form-control" type="submit"
+              ng-disabled="!accountService.logged()">Envoyer</button>
+    </form>
+  </div>
+</div>

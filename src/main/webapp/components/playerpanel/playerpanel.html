@@ -1,0 +1,20 @@
+<div class="panel panel-primary player-panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{title}}</h3>
+  </div>
+  <div class="panel-body">
+    <container empty-message="Aucun joueur"
+               error-message="Erreur dans la recherche des joueurs"
+               loading-message="Chargement des joueurs"
+               content-data="data">
+      <div class="row" ng-repeat="player in data">
+        <div class="col-lg-2 col-xs-2 logo">
+          <img src="images/userSmall1.png">
+        </div>
+        <div class="col-lg-10 col-xs-10 content">
+          {{player.player.firstName}} {{player.player.name}}
+        </div>
+      </div>
+    </container>
+  </div>
+</div>

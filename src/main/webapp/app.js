@@ -37,6 +37,10 @@ app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
     templateUrl: 'routes/championship/championship.html',
     controller: 'ChampionshipCtrl'
   })
+  .when('/match/:id', {
+    templateUrl: 'routes/match/match.html',
+    controller: 'MatchCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

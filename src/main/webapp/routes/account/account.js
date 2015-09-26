@@ -1,4 +1,4 @@
-app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$location', function ($scope, AccountService, DataService, $location) {
+app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$location', 'MatchDataFormatter', function ($scope, AccountService, DataService, $location, MatchDataFormatter) {
   $scope.account = {
     loading: true,
     service: AccountService,
@@ -23,30 +23,11 @@ app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$loca
       $scope.account.teams = data.teams;
       $scope.account.imageExists = data.uploadImage;
       var now = moment();
-      var scoreWriter = function(match) {
-        if (match.state === 'F') {
-          return 'Forfait';
-        } else if (match.state == 'V' || match.state == 'S' || match.state == 'R') {
-          return match.sc1 + '/' + match.sc2;
-        } else {
-          return '-';
-        }
-      };
       $scope.account.teamIds = [];
       _.each($scope.account.teams, function (team) {
         $scope.account.teamIds.push(team.team.identifier);
       });
-      _.each($scope.account.matchs, function (match) {
-        var momentDate = moment(match.date);
-        var played = (match.stamat !== 'C');
-        match.display = {
-          momentDate: momentDate,
-          shortDate: momentDate.format("DD/MM"),
-          generalScore: scoreWriter(match),
-          firstWinner: (played && match.stamat !== 'F' && match.sc1 > match.sc2),
-          secondWinner: (played && match.stamat !== 'F' && match.sc2 > match.sc1)
-        };
-      })
+      MatchDataFormatter.formatList($scope.account.matchs);
       $scope.account.sorted.nextMatchs = _.filter($scope.account.matchs, function (match) {
         return now.isBefore(match.display.momentDate) && match.state === 'C';
       });

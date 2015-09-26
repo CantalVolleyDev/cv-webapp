@@ -12,15 +12,27 @@ body {
 }
 
 .page-view {
-  /* Suppression de 2px pour bootstrap */
-  min-height: calc(~"100% - "@footer-max-height + @header-height-desktop + @header-bottom-border-size - 2px)
+  min-height: calc(~"100% - "@footer-height + @navbar-height + @header-border-size*2);
 }
 
-@media (max-width: @desktop-min-width) {
+/*@media (max-width: @desktop-min-width) {
   .page-view {
-    /* Suppression de 2px pour bootstrap */
-    min-height: calc(~"100% - "@footer-max-height + @header-height-laptop + @header-bottom-border-size - 2px)
+    min-height: calc(~"100% - "@footer-height + @header-height-laptop + @header-bottom-border-size - 2px)
   }
+}*/
+
+/*
+ * Bootstrap défini en dur 1px de bordure pour la .navbar
+ * Redéfinition de la taille ici dans une variable globale pour permettre 
+ * les calculs de la page au milieu + Définition de la couleur également
+ */
+.navbar {
+  border: @header-border-size solid @global-second-color;
+}
+
+.btn:focus,
+.btn:active:focus {
+  outline: none;
 }
 
 .clickable-item {
