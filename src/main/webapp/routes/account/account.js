@@ -1,23 +1,19 @@
-app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$location', 'MatchDataFormatter', function ($scope, AccountService, DataService, $location, MatchDataFormatter) {
-  $scope.account = {
-    loading: true,
+app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$location', 'MatchDataFormatter', 'DefaultDataCtrlProperties', 
+function ($scope, AccountService, DataService, $location, MatchDataFormatter, DefaultDataCtrlProperties) {
+  $scope.account = angular.extend({}, DefaultDataCtrlProperties, {
     service: AccountService,
     matchs: [],
     teams: [],
     teamIds: [],
-    sorted: {}
-  };
+    sorted: {}                                  
+  });
   $scope.disconnect = function () {
     $scope.account.loading = true;
     AccountService.logout().then(function () {
-      $location.path('/login');
+      $location.path('/login/user');
     });
   };
   AccountService.promise.then(function () {
-    if (!AccountService.logged()) {
-      $location.path('/login');
-      return;
-    }
     DataService.get('/user/account').then(function (data) {
       $scope.account.matchs = data.matchs;
       $scope.account.teams = data.teams;
@@ -42,6 +38,9 @@ app.controller('AccountCtrl', ['$scope', 'AccountService', 'DataService', '$loca
         return (match.state === 'S' || match.state === 'R') && 
                 $scope.account.teamIds.indexOf(match.scoreSettingTeam.identifier) !== -1;
       });
+      $scope.account.loading = false;
+    }, function (data) {
+      $scope.account.errorData = data;
       $scope.account.loading = false;
     });
   });

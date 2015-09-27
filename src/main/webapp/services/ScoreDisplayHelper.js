@@ -1,7 +1,8 @@
 app.factory('ScoreDisplayHelper', function() {
   return {
-    init: function(data) {
+    init: function(data, direct) {
       this.data = data;
+      this.direct = direct;
       this.enableScoreFlag = false;
       this.enableScoreFlag = this.isScoreEnabled();
       this.initialized = true;
@@ -33,7 +34,7 @@ app.factory('ScoreDisplayHelper', function() {
       return this.initialized && ((this.data.match.state !== 'S' && this.data.match.state !== 'R') || this.enableScoreFlag);
     },
     displayRefuse: function() {
-      return this.initialized && this.data.match.state !== 'C';
+      return this.initialized && this.data.match.state !== 'C' && angular.isUndefined(this.direct);
     },
     getRefuseLabel: function() {
       if (!this.initialized)
@@ -46,6 +47,17 @@ app.factory('ScoreDisplayHelper', function() {
     },
     displayValidAndConfirm: function() {
       return this.initialized && this.data.match.state === 'C';
+    },
+    getOppositeTeamId: function() {
+      if (this.data.userTeams.indexOf(this.data.match.firstTeam.identifier) === -1) {
+        if (this.data.userTeams.indexOf(this.data.match.secondTeam.identifier) !== -1) {
+          return this.data.match.firstTeam.identifier;
+        }
+      } else {
+        if (this.data.userTeams.indexOf(this.data.match.secondTeam.identifier) === -1) {
+          return this.data.match.secondTeam.identifier;
+        }
+      }
     }
   };
 });

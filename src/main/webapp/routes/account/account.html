@@ -1,5 +1,6 @@
+<alert ng-show="account.errorData" error-data="account.errorData"></alert>
 <loader ng-show="account.loading"></loader>
-<div class="panel panel-primary myaccount-panel" ng-show="!account.loading">
+<div class="panel panel-primary myaccount-panel" ng-show="!account.loading && !account.errorData">
   <div class="panel-heading">
     <h3 class="panel-title">
       <span class="hidden-xs"><i class="cv-icon cv-icon-user"></i></span>

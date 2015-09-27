@@ -4,7 +4,9 @@
   <div ng-show="!login.loading">
     <div class="row text-center">
       <form class="col-lg-12" ng-submit="log()">
-        <div class="title">Connexion à votre compte</div>
+        <div class="title">
+          {{login.getPageTitle()}}
+        </div>
         <input class="form-control" type="mail" placeholder="Adresse e-mail" ng-model="login.fields.mail"/>
         <input class="form-control" type="password" placeholder="Mot de passe" ng-model="login.fields.password"/>
         <div class="btn-group btn-group-justified btn-connect-group" role="group">
@@ -12,7 +14,7 @@
             <button type="submit" class="btn btn-primary btn-connect">Connexion</button>
           </div>
         </div>
-        <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group btn-group-justified" role="group" ng-show="login.isStateUserLogin()">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-primary" ng-click="lostPassword()">Mot de passe perdu ?</button>
           </div>

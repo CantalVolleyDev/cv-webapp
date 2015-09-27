@@ -17,7 +17,7 @@ app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
   .when('/contacts', {
     templateUrl: 'routes/contacts/contacts.html'
   })
-  .when('/login', {
+  .when('/login/:state/:matchId?/:teamId?', {
     templateUrl: 'routes/login/login.html',
     controller: 'LoginCtrl'
   })
@@ -25,7 +25,7 @@ app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
     templateUrl: 'routes/account/account.html',
     controller: 'AccountCtrl'
   })
-  .when('/score/:id', {
+  .when('/score/:id/:direct?', {
     templateUrl: 'routes/score/score.html',
     controller: 'ScoreCtrl'
   })

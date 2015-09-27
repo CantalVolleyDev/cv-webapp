@@ -54,6 +54,9 @@ app.controller('ScoreCtrl', ['$scope', 'DefaultDataCtrlProperties', 'AccountServ
         }
       }
       DataService.post('/matchs/' + $routeParams.id + '/submit', matchInfos).then(function (data) {
+        if (directValidation) {
+          $location.path('/login/match/' + $routeParams.id + '/' + $scope.score.service.getOppositeTeamId());
+        }
         self.submitSuccessMessage = "Match validé avec succès.";
         self.loading = false;
       }, function (data) {
@@ -80,7 +83,7 @@ app.controller('ScoreCtrl', ['$scope', 'DefaultDataCtrlProperties', 'AccountServ
   AccountService.promise.then(function () {
     DataService.get('/matchs/' + $routeParams.id + '/submitInfos').then(function (data) {
       $scope.score.data = data;
-      ScoreDisplayHelper.init(data);
+      ScoreDisplayHelper.init(data, $routeParams.direct);
       $scope.score.loading = false;
     }, function (data) {
       $scope.score.errorData = data;

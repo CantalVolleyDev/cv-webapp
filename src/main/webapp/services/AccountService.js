@@ -2,6 +2,20 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
   var promise = $q.defer();
   var promiseResolved = false;
   var client;
+  
+  var userLogin = function (url, object, currentClient) {
+    var defer = $q.defer();
+    DataService.post(url, object).then(function (data) {
+      if (currentClient) {
+        client = data;
+      }
+      defer.resolve(data);
+    }, function (data) {
+      defer.reject(data);
+    });
+    return defer.promise;
+  };
+  
   return {
     promise: promise.promise,
     client: function() {
@@ -14,14 +28,15 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
       return !angular.isUndefined(client);
     },
     login: function(mail, password) {
-      var defer = $q.defer();
-      DataService.post('/user/login', {mail: mail, password: password}).then(function (data) {
-        client = data;
-        defer.resolve(data);
-      }, function (data) {
-        defer.reject(data);
-      });
-      return defer.promise;
+      return userLogin('/user/login', {mail: mail, password: password}, true);
+    },
+    loginForValidation: function(mail, password, matchId, teamId) {
+      return userLogin('/user/loginForValidation', {
+        mail: mail,
+        password: password,
+        matchId: matchId,
+        teamId: teamId
+      }, false);
     },
     logout: function() {
       var defer = $q.defer();
