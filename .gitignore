@@ -5,3 +5,4 @@
 /src/main/webapp/node_modules
 /src/main/resources/images
 /src/main/webapp/node
+/src/main/webapp/grunt-cache
