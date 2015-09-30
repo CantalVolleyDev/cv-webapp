@@ -1,7 +1,7 @@
 <div class="news-element col-lg-3">
   <div class="news">
     <div>
-      <img ng-src="images/news{{newsData.identifier}}.jpg">
+      <img ng-src="images/{{newsData.imagePath}}">
     </div>
     <div class="detail">
       <div class="category">{{newsData.category}}</div>
@@ -12,7 +12,7 @@
         Publié le {{newsData.readablePublishDate}}
       </div>
       <div class="publish-user">
-        <i class="cv-icon cv-icon-user"></i> {{newsData.author.firstName}} {{newsData.author.name}}
+        <i class="cv-icon cv-icon-user"></i> {{newsData.authorFullName}}
       </div>
     </div>
   </div>

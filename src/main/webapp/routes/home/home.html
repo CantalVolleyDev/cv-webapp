@@ -5,12 +5,7 @@
   <div class="invite-banner">
     APPRENEZ, JOUEZ, ET ENTRAÎNEZ VOTRE VOLLEY-BALL
   </div>
-  <container empty-message="Aucune actualité à afficher"
-             error-message="Erreur dans la recherche des actualités"
-             loading-message="Chargement des actualités"
-             route="/news?published=true&limitTo=4">
-    <news ng-repeat="news in data" news-data="news"></news>
-  </container>
+  <news-list></news-list>
   <div class="gallery row">
     <div class="col-lg-4">
       <img src="images/home1.jpg">

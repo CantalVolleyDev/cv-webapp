@@ -1,0 +1,11 @@
+<div class="well well-sm news-control text-center">
+  <i class="glyphicon glyphicon-chevron-left pull-left"></i>
+  Naviguez dans les actualités
+  <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+</div>
+<container empty-message="Aucune actualité à afficher"
+           error-message="Erreur dans la recherche des actualités"
+           loading-message="Chargement des actualités"
+           route="/news?published=true&limitTo=4">
+  <news ng-repeat="news in data" news-data="news"></news>
+</container>

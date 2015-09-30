@@ -8,6 +8,7 @@ module.exports = function (grunt) {
         final: '../../../target',
         work: 'grunt-work',
         images: 'images',
+        fonts: 'fonts',
         cache: 'grunt-cache'
       }
     },
@@ -47,7 +48,9 @@ module.exports = function (grunt) {
     components: 'components',
     routes: 'routes',
     services: 'services',
-    images: '../resources/' + configuration.paths.targetDirectories.images
+    images: '../resources/' + configuration.paths.targetDirectories.images,
+    fonts: '../resources/' + configuration.paths.targetDirectories.fonts,
+    libFonts: 'node_modules/bootstrap/' + configuration.paths.targetDirectories.fonts
   };
   
   configuration.paths.absoluteFiles = {
@@ -80,7 +83,17 @@ module.exports = function (grunt) {
     images: {
       debug: configuration.paths.fullDirectories.debug + '/' + configuration.paths.targetDirectories.images,
       release: configuration.paths.fullDirectories.release + '/' + configuration.paths.targetDirectories.images,
-      dvt: configuration.paths.fullDirectories.dvt + '/' + configuration.paths.targetDirectories.images,
+      dvt: configuration.paths.fullDirectories.dvt + '/' + configuration.paths.targetDirectories.images
+    },
+    fonts: {
+      debug: configuration.paths.fullDirectories.debug + '/' + configuration.paths.targetDirectories.fonts,
+      release: configuration.paths.fullDirectories.release + '/' + configuration.paths.targetDirectories.fonts,
+      dvt: configuration.paths.fullDirectories.dvt + '/' + configuration.paths.targetDirectories.fonts
+    },
+    libFonts: {
+      debug: configuration.paths.fullDirectories.debug + '/' + configuration.paths.targetDirectories.libFonts,
+      release: configuration.paths.fullDirectories.release + '/' + configuration.paths.targetDirectories.libFonts,
+      dvt: configuration.paths.fullDirectories.dvt + '/' + configuration.paths.targetDirectories.libFonts
     }
   };
   
@@ -207,6 +220,15 @@ module.exports = function (grunt) {
             flatten: true, 
             src: [configuration.paths.fullDirectories.images + '/*.*'], 
             dest: configuration.paths.absoluteFiles.images.debug 
+          },
+          { 
+            expand: true, 
+            flatten: true, 
+            src: [
+              configuration.paths.fullDirectories.fonts + '/*.*',
+              configuration.paths.fullDirectories.libFonts + '/*.*'
+            ], 
+            dest: configuration.paths.absoluteFiles.fonts.debug 
           }
         ]
       },
@@ -246,6 +268,15 @@ module.exports = function (grunt) {
           { 
             expand: true, 
             flatten: true, 
+            src: [
+              configuration.paths.fullDirectories.fonts + '/*.*', 
+              configuration.paths.fullDirectories.libFonts + '/*.*'
+            ], 
+            dest: configuration.paths.absoluteFiles.fonts.release
+          },
+          { 
+            expand: true, 
+            flatten: true, 
             src: [configuration.paths.targetDirectories.work + '/index.html'], 
             dest: configuration.paths.fullDirectories.release 
           }
@@ -270,6 +301,15 @@ module.exports = function (grunt) {
             flatten: true, 
             src: [configuration.paths.fullDirectories.images + '/*.*'], 
             dest: configuration.paths.absoluteFiles.images.dvt
+          },
+          { 
+            expand: true, 
+            flatten: true, 
+            src: [
+              configuration.paths.fullDirectories.fonts + '/*.*',
+              configuration.paths.fullDirectories.libFonts + '/*.*'
+            ], 
+            dest: configuration.paths.absoluteFiles.fonts.dvt
           },
           { 
             expand: true, 
