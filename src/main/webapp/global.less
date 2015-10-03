@@ -1,8 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Ubuntu', serif;
   font-size: @desktop-font-size;
-  overflow-y: scroll;
 }
 
 @media (max-width: @desktop-min-width) {
@@ -13,6 +12,7 @@ body {
 
 .page-view {
   min-height: calc(~"100% - "@footer-height + @navbar-height + @header-border-size*2);
+  background-color: @global-first-color;
 }
 
 /*@media (max-width: @desktop-min-width) {
@@ -30,6 +30,10 @@ body {
   border: @header-border-size solid @global-second-color;
 }
 
+.alert {
+  margin-bottom: 0px;
+}
+
 .btn:focus,
 .btn:active:focus {
   outline: none;
@@ -37,6 +41,10 @@ body {
 
 .clickable-item {
   cursor: pointer;
+}
+.disabled-item {
+  cursor: default;
+  color: @global-second-color-darken;
 }
 
 form .form-control {

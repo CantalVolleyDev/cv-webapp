@@ -6,8 +6,22 @@ app.directive('newsList', [function() {
         currentPage: 1
       };
       scope.nextPage = function() {
-        scope.newsList.currentPage + 1;
+        scope.newsList.currentPage = scope.newsList.currentPage + 1;
+        scope.newsList.currentRouteUrl = '/news?published=true&limitTo=4&page=' + scope.newsList.currentPage;
       };
+      scope.previousPage = function() {
+        if (scope.newsList.currentPage == 1)
+          return;
+        scope.newsList.currentPage = scope.newsList.currentPage - 1;
+        scope.newsList.currentRouteUrl = '/news?published=true&limitTo=4&page=' + scope.newsList.currentPage;
+      };
+      scope.isPreviousEnabled = function() {
+        return scope.newsList.currentPage > 1;
+      };
+      scope.isNextEnabled = function() {
+        return true;
+      };
+      scope.newsList.currentRouteUrl = '/news?published=true&limitTo=4&page=' + scope.newsList.currentPage;
     }
   };
 }]);

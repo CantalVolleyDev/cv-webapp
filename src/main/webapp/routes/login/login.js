@@ -1,6 +1,6 @@
 app.controller('LoginCtrl', ['$scope', 'AccountService', '$location', '$routeParams', 'DefaultDataCtrlProperties', function ($scope, AccountService, $location, $routeParams, DefaultDataCtrlProperties) {
   $scope.login = angular.extend({}, DefaultDataCtrlProperties, {
-    fields: {mail: 'j.touzy@qualiac.com', password: ''},
+    fields: {mail: '', password: ''},
     state: $routeParams.state,
     isStateUserLogin: function () {
       return this.state === 'user';

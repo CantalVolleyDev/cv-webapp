@@ -9,7 +9,7 @@
                content-data="data">
       <div class="row comment-content" ng-repeat="comment in data">
         <div class="col-lg-2 col-xs-2 logo">
-          <img src="images/user-male-default.png">
+          <img ng-src="{{comment.user.imagePath}}">
         </div>
         <div class="col-lg-10 col-xs-10 content">
           <div>

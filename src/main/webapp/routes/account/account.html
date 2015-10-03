@@ -15,10 +15,17 @@
   </div>
   <div class="panel-body">
     <div class="row">
+      <div class="help col-lg-push-2 col-lg-10">
+        <a href="#help/score" class="btn btn-primary">Comment saisir un score?</a>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-2">
         <div class="user-infos">
-          <i ng-show="!account.imageExists" class="cv-icon cv-icon-user"></i>
-          <img ng-show="account.imageExists" src="https://avatars0.githubusercontent.com/u/5709133?v=3&s=460">
+          <div class="image">
+            <img ng-src="{{account.service.client().imagePath}}"
+                 ng-class="{'default':account.service.isImageDefault()}">
+          </div>
           <div class="user-name">
             {{account.service.client().firstName}}
             {{account.service.client().name}}
@@ -32,10 +39,6 @@
                 {{teamPlayer.team.label}}
               </li>
             </ul>
-          </div>
-          <div class="help">
-            Aide
-            <a href="#help/score" class="btn btn-sm btn-warning">Comment saisir un score?</a>
           </div>
         </div>
       </div>

@@ -1,11 +1,10 @@
 /* Le conteneur général doit faire la taille minimum de la page */
 .championship-global {
-  height: calc(~"100% - "@footer-height + @navbar-height + @header-border-size*2);
+  /*height: calc(~"100% - "@footer-height + @navbar-height + @header-border-size*2);*/
 }
 /* Suppression de l'espacement inférieur du .panel */
 .championship-panel {
   margin-bottom: 0px;
-  height: 100%;
 }
 /* Alignement des titres des panneaux */
 .championship-panel .panel-title {
@@ -18,7 +17,7 @@
 /* Suppression du padding du grand panneau (celui des compétitions) */
 .championship-panel .championship-panel-body {
   padding: 0px;
-  height: calc(~"100% - 36px");
+  /*height: calc(~"100% - 36px");*/
 }
 /* Aucune bordure pour le panneau des championnats (celui du dessous) + Suppression espacement inférieur */
 .championship-sub-panel {
@@ -37,7 +36,9 @@
 .championship-panel .panel-control .btn {
   font-size: 16px;
 }
-.championship-panel .division-container {
-  overflow-y: scroll;
-  height: calc(~"100% - 37px");
+.championship-panel .division-container .loading {
+  color: @global-first-color;
+}
+.championship-panel .division-container .sk-cube-grid .sk-cube {
+  background-color: @global-first-color;
 }

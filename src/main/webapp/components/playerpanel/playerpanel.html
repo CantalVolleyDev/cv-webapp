@@ -9,7 +9,7 @@
                content-data="data">
       <div class="row player" ng-repeat="player in data">
         <div class="col-lg-2 col-xs-2 logo">
-          <img src="images/user-male-default.png">
+          <img ng-src="{{player.player.imagePath}}">
         </div>
         <div class="col-lg-10 col-xs-10 content">
           {{player.player.firstName}} {{player.player.name}}

@@ -65,6 +65,11 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
         promise.reject(data);
       });  
       return promise.promise;
+    },
+    isImageDefault: function() {
+      if (!promiseResolved || angular.isUndefined(client))
+        return true;
+      return client.imagePath.indexOf('default') !== -1;
     }
   }
 }]);

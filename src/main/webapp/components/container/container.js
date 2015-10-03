@@ -5,7 +5,7 @@ app.directive('container', ['$http', 'DataService', function($http, DataService)
     scope: {
       emptyMessage: '@',
       errorMessage: '@',
-      route: '@',
+      route: '=',
       contentData: '='
     },
     link: function(scope, element, attrs, ctrl, transclude) {
@@ -27,16 +27,18 @@ app.directive('container', ['$http', 'DataService', function($http, DataService)
       });
 
       if (!withData) {
-        scope.data = [];
-        DataService.get(scope.route).then(function (result) {
-          scope.dataLoading = false;
-          scope.data = result;
-          scope.dataEmpty = (scope.data.length === 0);
-          scope.showData = !scope.dataEmpty;
-        }, function (errorResult) {
-          scope.dataLoading = false;
-          scope.loadingError = true;
-          scope.errorDetails = errorResult;
+        scope.$watch('route', function (value) {
+          scope.data = [];
+          DataService.get(value).then(function (result) {
+            scope.dataLoading = false;
+            scope.data = result;
+            scope.dataEmpty = (scope.data.length === 0);
+            scope.showData = !scope.dataEmpty;
+          }, function (errorResult) {
+            scope.dataLoading = false;
+            scope.loadingError = true;
+            scope.errorDetails = errorResult;
+          });  
         });
       } else {
         scope.$watch('contentData', function(value) {

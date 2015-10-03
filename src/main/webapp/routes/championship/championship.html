@@ -29,30 +29,30 @@
                 <div class="table-responsive">
                 <table class="table table-bordered table-condensed table-striped">
                   <tr>
-                    <th>Equipe</th>
-                    <th>Pts</th>
-                    <th>J.</th>
-                    <th>V.</th>
-                    <th>P.</th>
-                    <th>2/3</th>
-                    <th>F</th>
-                    <th>SP</th>
-                    <th>SC</th>
-                    <th>PP</th>
-                    <th>PC</th>
+                    <th class="text-center">Equipe</th>
+                    <th class="text-center">Pts</th>
+                    <th class="text-center">J.</th>
+                    <th class="text-center">V.</th>
+                    <th class="text-center">P.</th>
+                    <th class="text-center">2/3</th>
+                    <th class="text-center">F</th>
+                    <th class="text-center">SP</th>
+                    <th class="text-center">SC</th>
+                    <th class="text-center">PP</th>
+                    <th class="text-center">PC</th>
                   </tr>
                   <tr ng-repeat="team in championship.currentChampionship.teams">
                     <td>{{team.team.label}}</td>
-                    <td>{{team.points}}</td>
-                    <td>{{team.play}}</td>
-                    <td>{{team.win}}</td>
-                    <td>{{team.loose}}</td>
-                    <td>{{team.loose3By2}}</td>
-                    <td>{{team.forfeit}}</td>
-                    <td>{{team.setsFor}}</td>
-                    <td>{{team.setsAgainst}}</td>
-                    <td>{{team.pointsFor}}</td>
-                    <td>{{team.pointsAgainst}}</td>
+                    <td class="text-center">{{team.points}}</td>
+                    <td class="text-center">{{team.play}}</td>
+                    <td class="text-center">{{team.win}}</td>
+                    <td class="text-center">{{team.loose}}</td>
+                    <td class="text-center">{{team.loose3By2}}</td>
+                    <td class="text-center">{{team.forfeit}}</td>
+                    <td class="text-center">{{team.setsFor}}</td>
+                    <td class="text-center">{{team.setsAgainst}}</td>
+                    <td class="text-center">{{team.pointsFor}}</td>
+                    <td class="text-center">{{team.pointsAgainst}}</td>
                   </tr>
                 </table>
                 </div>

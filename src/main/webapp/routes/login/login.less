@@ -1,3 +1,8 @@
+.login {
+  min-height: calc(~"100% - "@footer-height + @navbar-height + @header-border-size*2);
+  background-color: @global-first-color;
+}
+
 .login .title {
   font-size: 30px;
   padding: 20px 0px 20px 0px;
@@ -11,9 +16,8 @@
   margin-bottom: 5px;
 }
 
-@media (min-width: @screen-sm) {
-  .login form {
-    padding-left: 30%;
-    padding-right: 30%;
-  }
+.login form {
+  background-color: white;
+  margin-top: 30px;
+  padding-bottom: 20px;
 }
