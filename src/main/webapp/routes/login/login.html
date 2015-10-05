@@ -7,11 +7,16 @@
         <div class="title">
           {{login.getPageTitle()}}
         </div>
-        <input class="form-control" type="mail" placeholder="Adresse e-mail" ng-model="login.fields.mail"/>
-        <input class="form-control" type="password" placeholder="Mot de passe" ng-model="login.fields.password"/>
+        <input class="form-control" type="mail" placeholder="Adresse e-mail" ng-model="login.fields.mail"
+               ng-disabled="login.isStatePasswordChange()"/>
+        <input class="form-control" type="password" placeholder="{{login.getPasswordLabel()}}" ng-model="login.fields.password"/>
+        <input class="form-control" type="password" placeholder="Nouveau mot de passe" ng-model="login.fields.newPassword"
+               ng-show="login.isStatePasswordChange()"/>
+        <input class="form-control" type="password" placeholder="Confirmation du nouveau mot de passe" 
+               ng-model="login.fields.newPasswordConfirm" ng-show="login.isStatePasswordChange()"/>
         <div class="btn-group btn-group-justified btn-connect-group" role="group">
           <div class="btn-group" role="group">
-            <button type="submit" class="btn btn-primary btn-connect">Connexion</button>
+            <button type="submit" class="btn btn-primary btn-connect">{{login.getActionLabel()}}</button>
           </div>
         </div>
         <div class="btn-group btn-group-justified" role="group" ng-show="login.isStateUserLogin()">

@@ -13,6 +13,7 @@ app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'Data
       $scope.championship.loadingChampionship = true;
       DataService.get('/championships/' + identifier + '/rankings').then(function (data) {
         $scope.championship.currentChampionship = data;
+        $scope.championship.currentChampionship.matchs = _.sortByAll(data.matchs, ['date', 'firstTeam']);
         MatchDataFormatter.formatList($scope.championship.currentChampionship.matchs);
         $scope.championship.currentChampionship.matchsByDays = _.groupBy(data.matchs, function(m) {
           return m.step;

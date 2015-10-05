@@ -1,0 +1,58 @@
+<alert ng-show="team.displayError()" error-data="team.errorData"></alert>
+<loader ng-show="team.loading"></loader>
+<div class="team-details" ng-show="team.displayData()">
+  <div class="row">
+    <div class="col-lg-2 team-infos">
+      <div class="image">
+        <img ng-src="{{team.data.seasonTeam.imagePath}}"
+             ng-class="{'default':team.isImageDefault()}"
+             class="logo-image">
+      </div>
+      <div class="name">{{team.data.seasonTeam.label}}</div>
+      <div class="image" ng-show="!team.isImagePlayersDefault()">
+        <a ng-href="{{team.data.seasonTeam.imagePlayersPath}}" target="_blank">
+          <img ng-src="{{team.data.seasonTeam.imagePlayersPath}}"
+               ng-class="{'default':team.isImagePlayersDefault()}"
+               class="players-image">
+        </a>
+        <span><i class="glyphicon glyphicon-search"></i> Cliquez sur l'image pour agrandir</span>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <player-panel title="Responsable" 
+                    data="team.data.display.managers">
+      </player-panel>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Informations</h3>
+        </div>
+        <div class="panel-body">
+          <div class="manager-info">
+            <div><strong>Adresse e-mail du responsable</strong></div> 
+            <div>{{team.data.display.manager.player.mail}}</div>
+          </div>
+          <div class="manager-info">
+            <div><strong>Numéro de téléphone du responsable</strong></div>
+            <div>{{team.data.display.manager.player.phone}}</div>
+          </div>
+          <div class="manager-info">
+            <div><strong>Gymnase pour les matchs</strong></div>
+            <div>{{team.data.seasonTeam.gym.label}}</div>
+          </div>
+          <div class="manager-info">
+            <div><strong>Réception</strong></div>
+            <div>{{team.data.display.date}}</div>
+          </div>
+        </div>
+      </div>
+      <comment-panel data="team.data.comments" url-post="team.urlPostComment" 
+                     url-loading="team.urlLoadingComments">
+      </comment-panel>
+    </div>
+    <div class="col-lg-6">
+      <player-panel title="Joueurs"
+                    data="team.data.players">
+      </player-panel>
+    </div>
+  </div>
+</div>

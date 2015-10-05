@@ -3,7 +3,7 @@ app.factory('DataService', ['$http', 'dataServiceUrl', '$log', '$q', function ($
     get: function(route) {
       var defer = $q.defer();
       var url = dataServiceUrl + route;
-      $log.info('GET ' + url);
+      //$log.info('GET ' + url);
       var http = $http.get(url);
       http.then(function (data) {
         defer.resolve(data.data);
@@ -16,7 +16,7 @@ app.factory('DataService', ['$http', 'dataServiceUrl', '$log', '$q', function ($
       var defer = $q.defer();
       var url = dataServiceUrl + route;
       var params = angular.toJson(parameters);
-      $log.info('POST ' + url + ' | ' + params);
+      //$log.info('POST ' + url + ' | ' + params);
       var http = $http.post(url, params);
       http.then(function (data) {
         defer.resolve(data.data);

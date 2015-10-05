@@ -7,7 +7,7 @@
                error-message="Erreur dans la recherche des matchs"
                loading-message="Chargement des matchs"
                content-data="data">
-      <div class="row match" ng-repeat="match in data"
+      <!--<div class="row match" ng-repeat="match in data"
            ng-click="matchClick(match)"
            ng-class="{'important': important, 'waiting-validation': (match.display.waitingValidation && showDetails)}">
         <div class="text-center hidden-xs col-lg-2">{{match.display.shortDate}}</div>
@@ -19,6 +19,29 @@
         <div class="text-center col-xs-5 col-lg-4"
              ng-class="{'winner':match.display.secondWinner}">
           {{match.secondTeam.label}}
+        </div>
+      </div>-->
+      
+      <div class="match" ng-repeat="match in data"
+           ng-click="matchClick(match)"
+           ng-class="{'important': important, 
+                      'waiting-validation': (match.display.waitingValidation && showDetails),
+                      'finished': (match.display.played && showDetails)}">
+        <div class="row text-center">
+          <div class="col-lg-5 col-xs-5" ng-class="{'winner':match.display.firstWinner}">{{match.firstTeam.label}}</div>
+          <div class="col-lg-2 col-xs-2">{{match.display.generalScore}}</div>
+          <div class="col-lg-5 col-xs-5" ng-class="{'winner':match.display.secondWinner}">{{match.secondTeam.label}}</div>
+        </div>
+        <div class="row text-center match-infos" ng-show="showDetails">
+          <div class="col-lg-12 col-xs-12" ng-show="!match.display.played">
+            {{match.display.longDate}}, {{match.firstTeam.gym.label}}
+          </div>
+          <div class="col-lg-12 col-xs-12 ended" ng-show="match.display.ended">
+            Terminé : {{match.display.scoreDetail}}
+          </div>
+          <div class="col-lg-12 col-xs-12 played" ng-show="match.display.played&&!match.display.ended">
+            En attente de validation par {{match.display.teamWaiting}}
+          </div>
         </div>
       </div>
     </container>

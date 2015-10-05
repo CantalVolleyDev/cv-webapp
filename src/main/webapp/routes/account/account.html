@@ -4,9 +4,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">
       <span class="hidden-xs"><i class="cv-icon cv-icon-user"></i></span>
-      Bienvenue<span class="hidden-xs"> sur votre page d'accueil</span>, 
-      <strong>{{account.service.client().firstName}}</strong>
-      <strong>{{account.service.client().name}}</strong>
+      Bienvenue<span class="hidden-xs"> sur votre page d'accueil</span>
       <div class="pull-right clickable-item" ng-click="disconnect()">
         <i class="cv-icon cv-icon-times"></i>
         <span class="hidden-xs">Déconnexion</span>
@@ -16,13 +14,14 @@
   <div class="panel-body">
     <div class="row">
       <div class="help col-lg-push-2 col-lg-10">
+        <a href="#login/password" class="btn btn-primary">Modifier mon mot de passe</a>
         <a href="#help/score" class="btn btn-primary">Comment saisir un score?</a>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-2">
         <div class="user-infos">
-          <div class="image">
+          <div class="image hidden-xs">
             <img ng-src="{{account.service.client().imagePath}}"
                  ng-class="{'default':account.service.isImageDefault()}">
           </div>
@@ -34,11 +33,10 @@
             {{account.service.client().mail}}
           </div>
           <div class="user-teams">
-            <ul class="list-group">
-              <li class="list-group-item" ng-repeat="teamPlayer in account.teams">
-                {{teamPlayer.team.label}}
-              </li>
-            </ul>
+            <a class="list-group-item" ng-repeat="teamPlayer in account.teams" 
+               ng-href="#team/{{teamPlayer.team.identifier}}">
+              {{teamPlayer.team.label}}
+            </a>
           </div>
         </div>
       </div>

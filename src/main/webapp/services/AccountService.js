@@ -48,6 +48,20 @@ app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataSe
       });
       return defer.promise;
     },
+    changePassword: function(mail, password, newPassword, newPasswordConfirm) {
+      var defer = $q.defer();
+      DataService.post('/user/changePassword', {
+        mail: mail,
+        password: password,
+        newPassword: newPassword,
+        newPasswordConfirm: newPasswordConfirm
+      }).then(function (data) {
+        defer.resolve(data);
+      }, function (data) {
+        defer.reject(data);
+      });
+      return defer.promise;
+    },
     load: function() {
       if (promiseResolved) {
         return promise.promise;

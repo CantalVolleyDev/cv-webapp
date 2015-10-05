@@ -37,7 +37,7 @@ module.exports = function (grunt) {
       'node_modules/bootstrap/less/bootstrap.less'
     ],
     lodashFunctions: [
-      'filter', 'each', 'remove', 'find', 'groupBy', 'capitalize'
+      'filter', 'each', 'remove', 'find', 'groupBy', 'capitalize', 'sortByAll'
     ]
   };
   

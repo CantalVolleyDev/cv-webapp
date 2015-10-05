@@ -29,6 +29,8 @@ app.directive('container', ['$http', 'DataService', function($http, DataService)
       if (!withData) {
         scope.$watch('route', function (value) {
           scope.data = [];
+          scope.dataLoading = true;
+          scope.dataEmpty = false;
           DataService.get(value).then(function (result) {
             scope.dataLoading = false;
             scope.data = result;

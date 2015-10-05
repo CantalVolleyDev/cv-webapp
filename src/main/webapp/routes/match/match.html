@@ -3,10 +3,12 @@
 <div class="match-details" ng-show="match.displayData()">
   <div class="row teams">
     <div class="col-lg-4 col-xs-4 team">
-      <div class="team-label">{{match.data.match.firstTeam.label}}</div>
-      <div class="logo">
-        <img ng-src="{{match.data.match.firstTeam.imagePath}}">
-      </div>
+      <a href="#team/{{match.data.match.firstTeam.identifier}}">
+        <div class="team-label">{{match.data.match.firstTeam.label}}</div>
+        <div class="logo">
+          <img ng-src="{{match.data.match.firstTeam.imagePath}}">
+        </div>
+      </a>
     </div>
     <div class="col-lg-4 col-xs-4 score">
       <div class="general-score">{{match.data.match.sc1}} - {{match.data.match.sc2}}</div>
@@ -22,10 +24,12 @@
       </div>
     </div>
     <div class="col-lg-4 col-xs-4 team">
-      <div class="team-label">{{match.data.match.secondTeam.label}}</div>
-      <div class="logo">
-        <img ng-src="{{match.data.match.secondTeam.imagePath}}">
-      </div>
+      <a href="#team/{{match.data.match.secondTeam.identifier}}">
+        <div class="team-label">{{match.data.match.secondTeam.label}}</div>
+        <div class="logo">
+          <img ng-src="{{match.data.match.secondTeam.imagePath}}">
+        </div>
+      </a>
     </div>
   </div>
   <div class="row details">

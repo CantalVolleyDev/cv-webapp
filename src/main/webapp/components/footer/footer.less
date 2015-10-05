@@ -8,6 +8,12 @@
   vertical-align: middle;
 }
 
+@media (max-width: @screen-sm) {
+  .footer {
+    line-height: calc(@footer-height/2);
+  }
+}
+
 .footer a,
 .footer a:focus {
   color: @global-first-font-color;

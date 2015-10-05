@@ -8,12 +8,28 @@ app.controller('LoginCtrl', ['$scope', 'AccountService', '$location', '$routePar
     isStateLoginMatch: function () {
       return this.state === 'match';
     },
+    isStatePasswordChange: function() {
+      return this.state === 'password';
+    },
     getPageTitle: function() {
       if (this.isStateLoginMatch())
         return "Connexion d'un joueur de l'équipe adverse";
       else if (this.isStateUserLogin())
         return "Connexion à votre compte";
+      else if (this.isStatePasswordChange())
+        return "Changement du mot de passe";
       return "";
+    },
+    getActionLabel: function() {
+      if (this.isStateLoginMatch() || this.isStateUserLogin())
+        return "Connexion";
+      else
+        return "Valider";
+    },
+    getPasswordLabel: function() {
+      if (this.isStatePasswordChange())
+        return "Mot de passe actuel";
+      return "Mot de passe";
     }
   });
   $scope.log = function () {
@@ -35,12 +51,27 @@ app.controller('LoginCtrl', ['$scope', 'AccountService', '$location', '$routePar
         $scope.login.loading = false;
         $scope.login.errorData = data;
       })
+    } else if ($scope.login.isStatePasswordChange()) {
+      AccountService.changePassword($scope.login.fields.mail, $scope.login.fields.password, 
+                                    $scope.login.fields.newPassword, $scope.login.fields.newPasswordConfirm).then(function () {
+        $location.path('/account');
+      }, function (data) {
+        $scope.login.loading = false;
+        $scope.login.errorData = data;
+      });
     }
   };
   AccountService.promise.then(function () {
     if (AccountService.logged() && $scope.login.isStateUserLogin()) {
       $location.path('/account');
       return;
+    }
+    if (!AccountService.logged() && ($scope.login.isStatePasswordChange() || $scope.login.isStateLoginMatch())) {
+      $location.path('/login');
+      return;
+    }
+    if ($scope.login.isStatePasswordChange()) {
+      $scope.login.fields.mail = AccountService.client().mail;
     }
     $scope.login.loading = false;
   });

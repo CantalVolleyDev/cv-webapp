@@ -1,27 +1,32 @@
 .match-list {
   padding: 0px;
 }
-
-.match-list .row.match {
+.match-list .match {
   cursor: pointer;
-  padding: 0px;
+  padding: 5px;
   border-bottom: solid 1px @global-first-color;
 }
-.match-list .row.match:last-child {
+.match-list .match:last-child {
   border-bottom: none;
 }
-
-.match-list .row.match:hover {
+.match-list .match-infos {
+  color: darkgray;
+  font-size: 13px;
+}
+.match-list .match:hover {
   background-color: @global-second-color-darken;
 }
-
 .match .winner {
   font-weight: bold;
 }
-
+.match.finished,
+.match-list .match-infos .ended {
+  color: green;
+}
 .match.important {
   color: red;
 }
-.match.waiting-validation {
+.match.waiting-validation,
+.match-list .match-infos .played {
   color: @brand-warning;
 }
