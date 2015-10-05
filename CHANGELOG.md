@@ -1,4 +1,4 @@
-## Release 1.0.0 (06/10/2015)
+## Release 1.0.0 (05/10/2015)
 ### Nouveautés
  * Accueil / actualités
  * Championnats : Calendrier et matchs
@@ -6,3 +6,4 @@
  * Accessibilité à "Mon compte"
  * Saisie de score de matchs (validations, refus)
  * Visualisation d'un match (+ commentaires)
+ * Visualisation de page équipe (+ commentaires)
