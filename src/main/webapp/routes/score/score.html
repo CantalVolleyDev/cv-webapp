@@ -24,19 +24,9 @@
               <div class="row general-score-header">
                 <div class="text-center col-xs-6">
                   <strong>{{score.data.match.firstTeam.label}}</strong>
-                  <!--<div class="checkbox">
-                    <label>
-                      <input type="checkbox" value=""> Forfait
-                    </label>
-                  </div>-->
                 </div>
                 <div class="text-center col-xs-6">
                   <strong>{{score.data.match.secondTeam.label}}</strong>
-                  <!--<div class="checkbox">
-                    <label>
-                      <input type="checkbox" value=""> Forfait
-                    </label>
-                  </div>-->
                 </div>
               </div>
               <div class="row general-score">
@@ -128,6 +118,16 @@
                     {{player.player.firstName}} {{player.player.name}}
                   </label>
                 </div>
+                <div class="checkbox" ng-repeat="player in score.data.additionalFirstTeamPlayers">
+                  <label>
+                    <input type="checkbox" value="" ng-disabled="true" ng-checked="true"> 
+                    Joueur externe 
+                    <i class="clickable-item glyphicon glyphicon-remove" ng-click="score.removeAdditionalPlayerFirstTeam()"
+                       ng-show="score.service.isUserTeam(score.data.match.firstTeam.identifier)"></i>
+                  </label>
+                </div>
+                <div><a class="clickable-item" ng-click="score.addAdditionalPlayerFirstTeam()"
+                        ng-show="score.service.isUserTeam(score.data.match.firstTeam.identifier)">Joueur externe...</a></div>
               </div>
               <div class="players-list" 
                    ng-class="{'opposite-players':!score.service.isUserTeam(score.data.match.secondTeam.identifier)}">
@@ -141,6 +141,16 @@
                     {{player.player.firstName}} {{player.player.name}}
                   </label>
                 </div>
+                <div class="checkbox" ng-repeat="player in score.data.additionalSecondTeamPlayers">
+                  <label>
+                    <input type="checkbox" value="" ng-disabled="true" ng-checked="true"> 
+                    Joueur externe 
+                    <i class="clickable-item glyphicon glyphicon-remove" ng-click="score.removeAdditionalPlayerSecondTeam()"
+                       ng-show="score.service.isUserTeam(score.data.match.secondTeam.identifier)"></i>
+                  </label>
+                </div>
+                <div><a class="clickable-item" ng-click="score.addAdditionalPlayerSecondTeam()"
+                        ng-show="score.service.isUserTeam(score.data.match.secondTeam.identifier)">Joueur externe...</a></div>
               </div>
             </div>
           </div>

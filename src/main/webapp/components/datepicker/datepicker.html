@@ -1,0 +1,29 @@
+<div class="datepicker">
+  <div class="selector">
+    <div>
+      <button class="btn" type="button" ng-click="datepickerFunctions.increaseHours()">
+        <i class="glyphicon glyphicon-chevron-up clickable-item"></i>
+      </button>
+    </div>
+    <div class="hours">{{datepicker.hours}}</div>
+    <div>
+      <button class="btn" type="button" ng-click="datepickerFunctions.decreaseHours()">
+        <i class="glyphicon glyphicon-chevron-down clickable-item"></i>
+      </button>
+    </div>
+  </div>
+  <div class="separator">:</div>
+  <div class="selector">
+    <div>
+      <button class="btn" type="button" ng-click="datepickerFunctions.increaseMinutes()">
+        <i class="glyphicon glyphicon-chevron-up clickable-item"></i>
+      </button>
+    </div>
+    <div class="minutes">{{datepicker.minutes}}</div>
+    <div>
+      <button class="btn" type="button" ng-click="datepickerFunctions.decreaseMinutes()">
+        <i class="glyphicon glyphicon-chevron-down clickable-item"></i>
+      </button>
+    </div>
+  </div>
+</div>

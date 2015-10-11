@@ -24,6 +24,19 @@ app.factory('DataService', ['$http', 'dataServiceUrl', '$log', '$q', function ($
         defer.reject(data);
       });
       return defer.promise;
+    },
+    put: function(route, parameters) {
+      var defer = $q.defer();
+      var url = dataServiceUrl + route;
+      var params = angular.toJson(parameters);
+      //$log.info('POST ' + url + ' | ' + params);
+      var http = $http.put(url, params);
+      http.then(function (data) {
+        defer.resolve(data.data);
+      }, function (data) {
+        defer.reject(data);
+      });
+      return defer.promise;
     }
   }
 }]);

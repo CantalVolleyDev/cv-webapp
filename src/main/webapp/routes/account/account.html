@@ -12,30 +12,35 @@
     </h3>
   </div>
   <div class="panel-body">
-    <div class="row">
-      <div class="help col-lg-push-2 col-lg-10">
-        <a href="#login/password" class="btn btn-primary">Modifier mon mot de passe</a>
-        <a href="#help/score" class="btn btn-primary">Comment saisir un score?</a>
+    <div class="row hidden-xs">
+      <div class="col-lg-push-2 col-lg-10">
+        <div class="help">
+          <a href="#login/password" class="btn btn-primary">
+            <i class="glyphicon glyphicon-pencil"></i>
+            Modifier mon mot de passe
+          </a>
+          <a href="#help/score" class="btn btn-primary">
+            <i class="cv-icon cv-icon-lightbulb-o"></i>
+            Comment saisir un score?
+          </a>
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-2">
-        <div class="user-infos">
-          <div class="image hidden-xs">
-            <img ng-src="{{account.service.client().imagePath}}"
-                 ng-class="{'default':account.service.isImageDefault()}">
-          </div>
-          <div class="user-name">
-            {{account.service.client().firstName}}
-            {{account.service.client().name}}
-          </div>
-          <div>
-            {{account.service.client().mail}}
-          </div>
-          <div class="user-teams">
-            <a class="list-group-item" ng-repeat="teamPlayer in account.teams" 
-               ng-href="#team/{{teamPlayer.team.identifier}}">
-              {{teamPlayer.team.label}}
+      <div class="col-lg-2 user-infos">
+        <div class="image hidden-xs">
+          <img ng-src="{{account.service.client().imagePath}}"
+               ng-class="{'default':account.service.isImageDefault()}">
+        </div>
+        <div class="user-name">
+          {{account.service.client().firstName}}
+          {{account.service.client().name}}
+        </div>
+        <div class="user-teams">
+          <div class="list-group-item" ng-repeat="teamPlayer in account.teams">
+            <a ng-href="#team/{{teamPlayer.team.identifier}}">{{teamPlayer.team.label}}</a>
+            <a class="pull-right" ng-href="#teamInfos/{{teamPlayer.team.identifier}}">
+              <i class="glyphicon glyphicon-pencil"></i>
             </a>
           </div>
         </div>

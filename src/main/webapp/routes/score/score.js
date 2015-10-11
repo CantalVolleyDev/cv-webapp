@@ -33,8 +33,8 @@ app.controller('ScoreCtrl', ['$scope', 'DefaultDataCtrlProperties', 'AccountServ
       self.errorData = undefined;
       var matchInfos = {
         match: self.data.match,
-        firstTeamMatchPlayers: self.data.firstTeamMatchPlayers,
-        secondTeamMatchPlayers: self.data.secondTeamMatchPlayers,
+        firstTeamMatchPlayers: self.data.firstTeamMatchPlayers.concat(self.data.additionalFirstTeamPlayers),
+        secondTeamMatchPlayers: self.data.secondTeamMatchPlayers.concat(self.data.additionalSecondTeamPlayers),
         userTeams: self.data.userTeams,
         submitterComment: self.data.submitterComment
       };
@@ -78,6 +78,26 @@ app.controller('ScoreCtrl', ['$scope', 'DefaultDataCtrlProperties', 'AccountServ
       if (this.loading || this.displayError() || angular.isUndefined($scope.score.submitSuccessMessage))
         return false;
       return true;
+    },
+    addAdditionalPlayerFirstTeam: function() {
+      this.data.additionalFirstTeamPlayers.push({
+        match: this.data.match,
+        team: this.data.match.firstTeam,
+        player: null
+      });
+    },
+    removeAdditionalPlayerFirstTeam: function(player) {
+      this.data.additionalFirstTeamPlayers.splice(this.data.additionalFirstTeamPlayers.indexOf(player),1);
+    },
+    addAdditionalPlayerSecondTeam: function() {
+      this.data.additionalSecondTeamPlayers.push({
+        match: this.data.match,
+        team: this.data.match.secondTeam,
+        player: null
+      });
+    },
+    removeAdditionalPlayerSecondTeam: function(player) {
+      this.data.additionalSecondTeamPlayers.splice(this.data.additionalSecondTeamPlayers.indexOf(player),1);
     }
   });
   AccountService.promise.then(function () {

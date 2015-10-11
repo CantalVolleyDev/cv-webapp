@@ -45,6 +45,13 @@ app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
     templateUrl: 'routes/team/team.html',
     controller: 'TeamCtrl'
   })
+  .when('/teamInfos/:id', {
+    templateUrl: 'routes/teamInfos/teamInfos.html',
+    controller: 'TeamInfosCtrl'
+  })
+  /*.when('/activity', {
+    templateUrl: 'routes/activity/activity.html'
+  })*/
   .otherwise({
     redirectTo: '/'
   });

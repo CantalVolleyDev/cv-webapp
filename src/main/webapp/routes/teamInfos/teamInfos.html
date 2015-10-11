@@ -1,0 +1,55 @@
+<div class="form-container form-team-infos">
+  <loader ng-show="teamInfos.loading"></loader>
+  <alert ng-show="teamInfos.displayError()" error-data="teamInfos.errorData"></alert>
+  <div ng-show="!teamInfos.loading">
+    <div class="row text-center">
+      <form class="col-lg-push-3 col-lg-6" ng-submit="teamInfos.commitChange()">
+        <div class="title">
+          Modification des informations d'équipe
+        </div>
+        <div class="warning-message form-content">
+          <i class="glyphicon glyphicon-warning-sign"></i>
+          ATTENTION: Si vous modifiez vos informations (date de réception ou gymnase), tous les matchs que
+          vous n'avez pas encore joués seront modifiés. Les matchs validés ou en attente de saisie ne seront
+          pas modifiés.
+        </div>
+        <div>
+          <div class="panel panel-default form-content">
+            <div class="panel-heading">
+              <h3 class="panel-title">Sélectionnez votre jour et heure de match</h3>
+            </div>
+            <div class="panel-body row">
+              <div class="col-lg-8 days">
+                <button class="btn btn-primary btn-day" type="button" ng-repeat="day in teamInfos.days"
+                        ng-class="{'current': day.current}"
+                        ng-click="teamInfos.changeCurrent(day)">{{day.label}}</button>
+              </div>
+              <div class="col-lg-4">
+                <datepicker class="col-lg-push-2 col-lg-8" content-data="teamInfos.datePickerData"></datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel panel-default form-content">
+            <div class="panel-heading">
+              <h3 class="panel-title">Sélectionnez votre gymnase de rattachement</h3>
+            </div>
+            <div class="panel-body row">
+              <ul class="list-group text-justify">
+                <li class="clickable-item list-group-item" ng-repeat="gym in teamInfos.data.gyms"
+                    ng-class="{'active': (teamInfos.data.seasonTeam.gym.identifier === gym.identifier)}"
+                    ng-click="teamInfos.data.seasonTeam.gym = gym;">{{gym.label}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group btn-group-justified btn-main-group" role="group">
+          <div class="btn-group" role="group">
+            <button type="submit" class="btn btn-primary btn-main-action">Valider</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

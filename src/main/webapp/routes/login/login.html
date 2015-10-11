@@ -1,4 +1,4 @@
-<div class="login">
+<div class="form-container">
   <loader ng-show="login.loading"></loader>
   <alert ng-show="login.displayError()" error-data="login.errorData"></alert>
   <div ng-show="!login.loading">
@@ -14,9 +14,9 @@
                ng-show="login.isStatePasswordChange()"/>
         <input class="form-control" type="password" placeholder="Confirmation du nouveau mot de passe" 
                ng-model="login.fields.newPasswordConfirm" ng-show="login.isStatePasswordChange()"/>
-        <div class="btn-group btn-group-justified btn-connect-group" role="group">
+        <div class="btn-group btn-group-justified btn-main-group" role="group">
           <div class="btn-group" role="group">
-            <button type="submit" class="btn btn-primary btn-connect">{{login.getActionLabel()}}</button>
+            <button type="submit" class="btn btn-primary btn-main-action">{{login.getActionLabel()}}</button>
           </div>
         </div>
         <div class="btn-group btn-group-justified" role="group" ng-show="login.isStateUserLogin()">

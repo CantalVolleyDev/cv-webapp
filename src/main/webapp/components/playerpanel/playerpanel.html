@@ -11,8 +11,11 @@
         <div class="col-lg-2 col-xs-2 logo">
           <img ng-src="{{player.player.imagePath}}">
         </div>
-        <div class="col-lg-10 col-xs-10 content">
+        <div class="col-lg-10 col-xs-10 content" ng-show="player.player.name">
           {{player.player.firstName}} {{player.player.name}}
+        </div>
+        <div class="col-lg-10 col-xs-10 content" ng-show="!player.player.name">
+          Joueur externe
         </div>
       </div>
     </container>

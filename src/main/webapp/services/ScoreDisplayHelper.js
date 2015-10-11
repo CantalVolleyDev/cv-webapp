@@ -2,6 +2,14 @@ app.factory('ScoreDisplayHelper', function() {
   return {
     init: function(data, direct) {
       this.data = data;
+      this.data.additionalFirstTeamPlayers = _.remove(this.data.firstTeamMatchPlayers, function(player) {
+        console.log(player);
+        return player.player.identifier == null;
+      });
+      this.data.additionalSecondTeamPlayers = _.remove(this.data.secondTeamMatchPlayers, function(player) {
+        console.log(player);
+        return player.player.identifier == null;
+      });
       this.direct = direct;
       this.enableScoreFlag = false;
       this.enableScoreFlag = this.isScoreEnabled();
