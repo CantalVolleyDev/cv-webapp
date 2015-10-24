@@ -28,10 +28,11 @@
     </div>
     <div class="row">
       <div class="col-lg-2 user-infos">
-        <div class="image hidden-xs">
-          <img ng-src="{{account.service.client().imagePath}}"
+        <a class="image hidden-xs clickable-item" ng-href="#upload/user">
+          <img ng-src="{{account.imagePath}}"
                ng-class="{'default':account.service.isImageDefault()}">
-        </div>
+          <span class="img-legend"><i class="glyphicon glyphicon-pencil"></i><br><br>Editer</span>
+        </a>
         <div class="user-name">
           {{account.service.client().firstName}}
           {{account.service.client().name}}

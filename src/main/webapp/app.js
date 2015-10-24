@@ -1,6 +1,7 @@
-var app = angular.module('cv-webapp', ['ngRoute', 'ngCookies']);
+var app = angular.module('cv-webapp', ['ngRoute']);
 
 moment.locale('fr');
+Dropzone.autoDiscover = false;
 
 app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
   $provide.decorator('$exceptionHandler', ['JSErrorService', '$delegate', function(JSErrorService, $delegate) {
@@ -48,6 +49,10 @@ app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
   .when('/teamInfos/:id', {
     templateUrl: 'routes/teamInfos/teamInfos.html',
     controller: 'TeamInfosCtrl'
+  })
+  .when('/upload/:id', {
+    templateUrl: 'routes/upload/upload.html',
+    controller: 'UploadCtrl'
   })
   /*.when('/activity', {
     templateUrl: 'routes/activity/activity.html'

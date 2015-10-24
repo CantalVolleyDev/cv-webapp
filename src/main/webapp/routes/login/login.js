@@ -30,6 +30,14 @@ app.controller('LoginCtrl', ['$scope', 'AccountService', '$location', '$routePar
       if (this.isStatePasswordChange())
         return "Mot de passe actuel";
       return "Mot de passe";
+    },
+    isCookiesEnabled: function() {
+      var cookieEnabled = (navigator.cookieEnabled) ? true : false;
+      if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled) { 
+        document.cookie = "cookieChecking";
+        cookieEnabled = (document.cookie.indexOf("cookieChecking") != -1) ? true : false;
+      }
+      return (cookieEnabled);
     }
   });
   $scope.log = function () {
@@ -72,6 +80,13 @@ app.controller('LoginCtrl', ['$scope', 'AccountService', '$location', '$routePar
     }
     if ($scope.login.isStatePasswordChange()) {
       $scope.login.fields.mail = AccountService.client().mail;
+    }
+    if (!$scope.login.isCookiesEnabled()) {
+      $scope.login.errorData = {
+        data: {
+          message: 'Les cookies de votre navigateur doivent être activés!'
+        }
+      };
     }
     $scope.login.loading = false;
   });

@@ -19,6 +19,7 @@
 }
 
 .myaccount-panel .user-infos {
+  position: relative;
   text-align: center;
   margin-bottom: 15px;
   color: @global-first-font-color;
@@ -32,17 +33,39 @@
 .myaccount-panel .user-infos .image {
   min-width: 100%;
   text-align: center;
-  border: solid 1px @global-first-font-color;
   margin-bottom: 10px;
-  background-color: @global-first-font-color;
   color: @global-first-color;
 }
 
 .myaccount-panel .user-infos img {
   width: 100%;
 }
+.myaccount-panel .user-infos img:hover {
+  opacity: 0.4;
+}
+.myaccount-panel .user-infos img:hover + .img-legend,
+.myaccount-panel .user-infos .img-legend:hover {
+  display: block;
+}
 .myaccount-panel .user-infos img.default {
   padding: 10px;
+  background-color: @global-first-font-color;
+  border: solid 1px @global-first-font-color;
+}
+
+.myaccount-panel .user-infos .img-legend { 
+  pointer-events: none;
+  display: none;
+  position: absolute; 
+  top: 30px; 
+  left: 0; 
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+.myaccount-panel .user-infos .img-legend i {
+  font-size: 30px;
 }
 
 .myaccount-panel .user-infos .user-teams {

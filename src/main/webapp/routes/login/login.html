@@ -1,7 +1,7 @@
 <div class="form-container">
   <loader ng-show="login.loading"></loader>
   <alert ng-show="login.displayError()" error-data="login.errorData"></alert>
-  <div ng-show="!login.loading">
+  <div ng-show="!login.loading&&login.isCookiesEnabled()">
     <div class="row text-center">
       <form class="col-lg-push-4 col-lg-4" ng-submit="log()">
         <div class="title">
@@ -16,7 +16,8 @@
                ng-model="login.fields.newPasswordConfirm" ng-show="login.isStatePasswordChange()"/>
         <div class="btn-group btn-group-justified btn-main-group" role="group">
           <div class="btn-group" role="group">
-            <button type="submit" class="btn btn-primary btn-main-action">{{login.getActionLabel()}}</button>
+            <button type="submit" class="btn btn-primary btn-main-action"
+                    ng-disabled="!login.isCookiesEnabled()">{{login.getActionLabel()}}</button>
           </div>
         </div>
         <div class="btn-group btn-group-justified" role="group" ng-show="login.isStateUserLogin()">

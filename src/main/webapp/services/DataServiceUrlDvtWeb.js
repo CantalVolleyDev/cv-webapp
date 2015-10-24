@@ -1,0 +1,1 @@
+app.value("dataServiceUrl", "http://dvt.cantalvolley.fr:8584/cvapi");

@@ -11,9 +11,10 @@
   <url>http://maven.apache.org</url>
 
   <properties>
+    <project.deployTarget>dvt</project.deployTarget>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <build>
     <plugins>
 	  <plugin>
@@ -51,7 +52,7 @@
 				<goal>grunt</goal>
 			  </goals>
 		      <configuration>
-				<arguments>installprod --force --no-color</arguments>
+				<arguments>install${project.deployTarget} --force --no-color</arguments>
 				<installDirectory>src/main/webapp</installDirectory>
 			  </configuration>
 			</execution>

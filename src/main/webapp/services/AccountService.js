@@ -1,4 +1,4 @@
-app.factory('AccountService', ['DataService', '$q', '$cookies', function (DataService, $q, $cookies) {
+app.factory('AccountService', ['DataService', '$q', function (DataService, $q) {
   var promise = $q.defer();
   var promiseResolved = false;
   var client;

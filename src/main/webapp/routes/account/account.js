@@ -5,7 +5,7 @@ function ($scope, AccountService, DataService, $location, MatchDataFormatter, De
     matchs: [],
     teams: [],
     teamIds: [],
-    sorted: {}                                  
+    sorted: {}
   });
   $scope.disconnect = function () {
     $scope.account.loading = true;
@@ -18,6 +18,7 @@ function ($scope, AccountService, DataService, $location, MatchDataFormatter, De
       $scope.account.matchs = data.matchs;
       $scope.account.teams = data.teams;
       $scope.account.imageExists = data.uploadImage;
+      $scope.account.imagePath = AccountService.client().imagePath + '?' + Math.random();
       var now = moment();
       $scope.account.teamIds = [];
       _.each($scope.account.teams, function (team) {

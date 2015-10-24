@@ -1,0 +1,51 @@
+<div class="form-container form-upload">
+  <loader ng-show="upload.loading"></loader>
+  <loader ng-show="upload.loadingImage" label="Téléchargement de l'image..."></loader>
+  <alert ng-show="upload.displayError()" error-data="upload.errorData"></alert>
+  <div ng-show="!upload.loading&&!upload.loadingImage">
+    <div class="row text-center">
+      <div class="form-master col-lg-push-3 col-lg-6">
+        <div class="title">
+          Téléchargez votre image personnelle
+        </div>
+        <div ng-show="!upload.imageData&&!upload.info.downloadInProgress">
+          <form id="imageUpload" class="form-slave dropzone dz-clickable clickable-item"
+                ng-class="{'form-content': upload.imageData}">
+            <div class="dz-default dz-message">
+              <span class="dz-message">Cliquez ici ou glissez simplement votre fichier à télécharger</span>
+            </div>
+          </form>
+        </div>
+        <div class="panel panel-default form-content" ng-show="upload.imageData&&!upload.info.downloadInProgress">
+          <div class="panel-heading">
+            <h3 class="panel-title">Recadrez votre image avant de valider</h3>
+          </div>
+          <div class="panel-body row">
+            <div class="col-lg-12">
+              <div class="img-container">
+                <img ng-src="{{upload.imageData}}" id="imagePreview"/>
+              </div>
+            </div>
+          </div>    
+        </div>
+        <div class="upload-progress" ng-show="upload.info.downloadInProgress">
+          <div class="progress-label text-center">{{upload.getProgressLabel()}}</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-primary progress-bar-striped"
+                 aria-valuenow="{{upload.progress}}" aria-valuemin="0" aria-valuemax="100"
+                 ng-style="{'width': upload.progress + '%'}">
+            </div>
+          </div>
+        </div>
+        <div class="btn-group btn-group-justified btn-main-group" ng-show="!upload.info.downloadInProgress">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary btn-main-action"
+                    ng-show="!upload.downloadInProgress&&upload.imageData" ng-click="upload.validateImage()">
+              Validation de l'image (Le téléchargement peut prendre un peu de temps)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,25 @@
 .match-details .team .logo img {
   max-width: 50%;
 }
+.match-details .score .general-score {
+  font-weight: bold;
+  font-size: 40px;
+}
+.match-details .score .state {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
 @media (max-width: @screen-sm) {
+  .match-details .team .team-label {
+    font-size: 20px;
+  }
+  .match-details .score .state {
+    font-size: inherit;
+  }
+  .match-details .score .general-score {
+    font-size: 30px;
+  }
   .match-details .team .logo img {
     max-width: 100%;
   }
@@ -23,14 +41,6 @@
 }
 .match-details .details .panel-heading {
   text-align: center;
-}
-.match-details .score .general-score {
-  font-weight: bold;
-  font-size: 40px;
-}
-.match-details .score .state {
-  font-weight: bold;
-  font-size: 20px;
 }
 .match-details .score .gym {
   margin-bottom: 10px;

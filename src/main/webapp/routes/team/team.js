@@ -1,5 +1,5 @@
-app.controller('TeamCtrl', ['$scope', 'AccountService', 'DataService', '$routeParams', 'DefaultDataCtrlProperties', 
-function ($scope, AccountService, DataService, $routeParams, DefaultDataCtrlProperties) {
+app.controller('TeamCtrl', ['$scope', 'AccountService', 'DataService', '$routeParams', 'DefaultDataCtrlProperties', 'MatchDataFormatter', 
+function ($scope, AccountService, DataService, $routeParams, DefaultDataCtrlProperties, MatchDataFormatter) {
   $scope.team = angular.extend({}, DefaultDataCtrlProperties, {
     isImageDefault: function() {
       return this.data && this.data.seasonTeam && this.data.seasonTeam.imagePath.indexOf('default') !== -1;
@@ -24,6 +24,9 @@ function ($scope, AccountService, DataService, $routeParams, DefaultDataCtrlProp
         manager: manager,
         date: moment(data.seasonTeam.date).format("[Le] dddd [à] HH[h]mm")
       };
+      _.each($scope.team.data.lastMatchs, function(match) {
+        MatchDataFormatter.format(match);
+      });
       $scope.team.loading = false;
     }, function (data) {
       $scope.team.errorData = data;

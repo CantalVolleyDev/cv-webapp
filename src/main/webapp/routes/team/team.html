@@ -18,7 +18,7 @@
         <span><i class="glyphicon glyphicon-search"></i> Cliquez sur l'image pour agrandir</span>
       </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 column-infos">
       <player-panel title="Responsable" 
                     data="team.data.display.managers">
       </player-panel>
@@ -27,6 +27,10 @@
           <h3 class="panel-title">Informations</h3>
         </div>
         <div class="panel-body">
+          <div class="manager-info">
+            <div><strong>Engagement de l'équipe</strong></div> 
+            <div>Equipe engagée pour des matchs à {{team.data.seasonTeam.playersNumber}} joueurs</div>
+          </div>
           <div class="manager-info">
             <div><strong>Adresse e-mail du responsable</strong></div> 
             <div>{{team.data.display.manager.player.mail}}</div>
@@ -49,10 +53,12 @@
                      url-loading="team.urlLoadingComments">
       </comment-panel>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 column-players">
       <player-panel title="Joueurs"
                     data="team.data.players">
       </player-panel>
+      <match-panel title="5 derniers résultats" data="team.data.lastMatchs" default="true" show-details="true"
+                   open-details="true" team-display="team.data.seasonTeam.identifier"></match-panel>
     </div>
   </div>
 </div>

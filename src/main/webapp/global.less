@@ -74,6 +74,10 @@ form .form-control:last-child {
   border: solid 1px @global-second-color-darken;
 }
 
+.dropzone .dz-message {
+  margin: 0px;
+}
+
 .form-container {
   
 }
@@ -91,7 +95,8 @@ form .form-control:last-child {
   margin-bottom: 5px;
 }
 
-.form-container form {
+.form-container form:not(.form-slave),
+.form-container .form-master {
   background-color: white;
   margin-top: 30px;
   padding-bottom: 20px;

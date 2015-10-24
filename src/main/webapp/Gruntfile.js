@@ -29,12 +29,12 @@ module.exports = function (grunt) {
       'node_modules/bootstrap/dist/js/bootstrap.min.js',
       'node_modules/angular/angular.min.js',
       'node_modules/angular-route/angular-route.min.js',
-      'node_modules/angular-cookies/angular-cookies.min.js'
+      'node_modules/dropzone/dist/dropzone.js',
+      'node_modules/cropperjs/dist/cropper.min.js'
     ],
     librariesDependencyCSS: [
-    ],
-    librariesDependencyLESS: [
-      'node_modules/bootstrap/less/bootstrap.less'
+      'node_modules/dropzone/dist/min/dropzone.min.css',
+      'node_modules/cropperjs/dist/cropper.min.css'
     ],
     lodashFunctions: [
       'filter', 'each', 'remove', 'find', 'groupBy', 'capitalize', 'sortByAll'
@@ -157,6 +157,7 @@ module.exports = function (grunt) {
           'app.js', 
           configuration.paths.fullDirectories.services + '/*.js',
           '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlProd.js',
+          '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlDvtWeb.js',
           'apprun.js',
           configuration.paths.fullDirectories.components + '/**/*.js', 
           configuration.paths.fullDirectories.routes + '/**/*.js'
@@ -167,6 +168,19 @@ module.exports = function (grunt) {
         src: [
           'app.js', 
           configuration.paths.fullDirectories.services + '/*.js',
+          '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlDvt.js',
+          '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlDvtWeb.js',
+          'apprun.js',
+          configuration.paths.fullDirectories.components + '/**/*.js', 
+          configuration.paths.fullDirectories.routes + '/**/*.js'
+        ],
+        dest: configuration.paths.absoluteFiles.js.work.full
+      },
+      javascriptWorkDvt: {
+        src: [
+          'app.js', 
+          configuration.paths.fullDirectories.services + '/*.js',
+          '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlProd.js',
           '!' + configuration.paths.fullDirectories.services + '/DataServiceUrlDvt.js',
           'apprun.js',
           configuration.paths.fullDirectories.components + '/**/*.js', 
@@ -527,6 +541,52 @@ module.exports = function (grunt) {
     "rename:indexDebug",
     // Copie des fichiers de production dans release
     "copy:release",
+    // Vider le dossier de travail
+    "clean:workDirectory"
+  ]);
+  
+    // Installation complète HTML/CSS/JS pour la production
+  grunt.registerTask("installdvt", [
+    // Vider le dossier de génération
+    "clean:releaseDirectory",
+    // Vider le dossier de travail
+    "clean:workDirectory",
+    // Vider le cache
+    "clean:cacheDirectory",
+    // Génération de apptemplates.js dans work avec tous les HTML
+    "ngtemplates:webapp",
+    // Génération de application.css dans work avec tous les LESS
+    "less:compile",
+    // Génération de lodash
+    "lodash:build",
+    // Concaténation des JS de l'application dans application.js
+    "concat:javascriptWorkDvt",
+    // Concaténation des librairies JS de l'application
+    "concat:javascriptLibs",
+    // Concaténation des librairies CSS de l'application
+    "concat:cssLibs",
+    // Minification du fichier CSS général dans work
+    "cssmin:target",
+     // Minification des librairies
+    "uglify:libraries",
+    // Minification des fichiers JS avec les librairies dans work
+    "uglify:target",
+    // Concaténation librairies et fichiers JS
+    "concat:workWithLibraries",
+    // Copie du fichier librairie en cache dans work
+    "copy:prepareDebug",
+    // Transformation du fichier HTML Debug
+    "htmlbuild:debug",
+    // On renomme le fichier en index-debug.html
+    "rename:indexWorkDebug",
+    // Transformation du fichier HTML
+    "htmlbuild:release",
+    // Copie des fichiers pour debug dans target
+    "copy:debug",
+    // Renommage du index-debug en index.html
+    "rename:indexDebug",
+    // Copie des fichiers de production dans release
+    "copy:dvt",
     // Vider le dossier de travail
     "clean:workDirectory"
   ]);

@@ -6,7 +6,9 @@ app.directive('matchPanel', ['$location', function($location) {
       data: '=',
       important: '=',
       showDetails: '=',
-      openDetails: '='
+      openDetails: '=',
+      default: '=',
+      teamDisplay: '='
     },
     link: function(scope) {
       scope.matchClick = function(match) {
@@ -16,6 +18,24 @@ app.directive('matchPanel', ['$location', function($location) {
           $location.path('/score/' + match.identifier);
         }
       };
+      scope.isDisplayWinner = function(match) {
+        if (!scope.teamDisplay)
+          return false;
+        if (match.display.firstWinner && scope.teamDisplay == match.firstTeam.identifier)
+          return true;
+        if (match.display.secondWinner && scope.teamDisplay == match.secondTeam.identifier)
+          return true;
+        return false;
+      },
+      scope.isDisplayLooser = function(match) {
+        if (!scope.teamDisplay)
+          return false;
+        if (match.display.firstWinner && scope.teamDisplay != match.firstTeam.identifier)
+          return true;
+        if (match.display.secondWinner && scope.teamDisplay != match.secondTeam.identifier)
+          return true;
+        return false;
+      }
     }
   };
 }]);

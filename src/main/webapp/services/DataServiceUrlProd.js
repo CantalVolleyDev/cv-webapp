@@ -1,1 +1,1 @@
-app.value("dataServiceUrl", "http://5.135.146.110:8583/cvapi");
+app.value("dataServiceUrl", "http://cantalvolley.fr:8583/cvapi");

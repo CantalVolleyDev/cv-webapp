@@ -16,17 +16,21 @@
 .match-list .match:hover {
   background-color: @global-second-color-darken;
 }
-.match .winner {
+.match .winner-team {
   font-weight: bold;
 }
 .match.finished,
-.match-list .match-infos .ended {
+.match.winner,
+.match-list .match-infos.winner,
+.match-list .match-infos.finished {
   color: green;
 }
-.match.important {
+.match.important,
+.match.looser,
+.match-list .match-infos.looser {
   color: red;
 }
-.match.waiting-validation,
-.match-list .match-infos .played {
+.match-list .match-infos.waiting-validation,
+.match.waiting-validation {
   color: @brand-warning;
 }
