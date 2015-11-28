@@ -28,6 +28,7 @@
               <div class="col-lg-6">
                 <table class="table table-bordered table-condensed table-striped">
                   <tr>
+                    <th class="text-center">#</th>
                     <th class="text-center">Equipe</th>
                     <th class="text-center">Pts</th>
                     <th class="text-center">J.</th>
@@ -41,6 +42,7 @@
                     <th class="text-center hidden-xs">PC</th>
                   </tr>
                   <tr ng-repeat="team in championship.currentChampionship.teams">
+                    <td class="text-center">{{$index+1}}</td>
                     <td><a ng-href="#team/{{team.team.identifier}}">{{team.team.label}}</a></td>
                     <td class="text-center">{{team.points}}</td>
                     <td class="text-center">{{team.play}}</td>
