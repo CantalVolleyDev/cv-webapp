@@ -2,6 +2,7 @@ app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'Data
   $scope.championship = angular.extend({}, DefaultDataCtrlProperties, {
     changeCurrentCompetition: function(competition) {
       $scope.championship.currentCompetition = competition;
+      localStorage.setItem("X-Cv-CurrentCompetition", competition.identifier);
       if (competition.championships.length > 0) {
         if (competition.championships.length === 1) {
           this.changeCurrentChampionship(competition.championships[0]);
@@ -18,6 +19,7 @@ app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'Data
         $scope.championship.currentChampionship.matchsByDays = _.groupBy(data.matchs, function(m) {
           return m.step;
         });
+        localStorage.setItem("X-Cv-CurrentChampionship", identifier);
         $scope.championship.loadingChampionship = false;
       });
     }
@@ -25,7 +27,17 @@ app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'Data
   DataService.get('/competitions?season=current&fillChampionships=true').then(function (data) {
     $scope.championship.data = data;
     if ($scope.championship.dataIsNotEmpty()) {
-      $scope.championship.changeCurrentCompetition($scope.championship.data[0]);
+      var currentCompetition = parseInt(localStorage.getItem("X-Cv-CurrentChampionship"), 10);
+      if (!angular.isUndefined(currentCompetition)) {
+        console.log(currentCompetition);
+        console.log($scope.championship.data[0].identifier);
+        currentCompetition = _.find($scope.championship.data, {identifier: currentCompetition});
+        console.log(currentCompetition);
+      }
+      if (angular.isUndefined(currentCompetition)) {
+        currentCompetition = $scope.championship.data[0];
+      }
+      $scope.championship.changeCurrentCompetition(currentCompetition);
     }
     $scope.championship.loading = false;
   });

@@ -2,7 +2,6 @@
   padding: 0px;
 }
 .match-list .match {
-  cursor: pointer;
   padding: 5px;
   border-bottom: solid 1px @global-first-color;
 }
@@ -13,9 +12,23 @@
   color: darkgray;
   font-size: 13px;
 }
-.match-list .match:hover {
+.match-list .match-detail:hover {
+  cursor: pointer;
   background-color: @global-second-color-darken;
 }
+.match-actions i {
+  padding-top: 5px;
+}
+
+@media (max-width: @screen-sm) {
+  .match-actions {
+    padding: 0px;
+  }
+  .match-detail {
+    padding: 0px;
+  }
+}
+
 .match .winner-team {
   font-weight: bold;
 }

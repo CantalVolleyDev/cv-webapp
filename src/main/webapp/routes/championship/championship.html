@@ -5,6 +5,7 @@
       <div class="panel-heading panel-control">
         <h3 class="panel-title">
           <button ng-repeat="competition in championship.data" class="btn btn-primary"
+                  ng-class="{'current-competition': competition.identifier === championship.currentCompetition.identifier}"
                   ng-click="championship.changeCurrentCompetition(competition)"
                   tabindex="-1">
             {{competition.label}}
@@ -16,6 +17,7 @@
           <div class="panel-heading panel-control">
             <h3 class="panel-title">
               <button ng-repeat="chp in championship.currentCompetition.championships" class="btn btn-default"
+                      ng-class="{'current-championship': chp.identifier === championship.currentChampionship.identifier}"
                       ng-click="championship.changeCurrentChampionship(chp)"
                       tabindex="-1">
                 {{chp.label}}

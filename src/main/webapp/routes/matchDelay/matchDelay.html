@@ -1,0 +1,37 @@
+<div class="form-container form-match-delay">
+  <loader ng-show="matchDelay.loading"></loader>
+  <alert ng-show="matchDelay.displayError()" error-data="matchDelay.errorData"></alert>
+  <div ng-show="matchDelay.displayData(true)">
+    <div class="row text-center">
+      <form class="col-lg-push-3 col-lg-6" ng-submit="matchDelay.commitChange()">
+        <div class="title">
+          Reporter un match
+          <div class="well well-sm">
+            {{matchDelay.data.firstTeam.label}} - {{matchDelay.data.secondTeam.label}}
+          </div>
+        </div>
+        <div class="warning-message form-content">
+          <i class="glyphicon glyphicon-warning-sign"></i>
+          Le match que vous reportez sera automatiquement modifié. Votre adversaire recevra l'information
+          par e-mail mais n'aura pas à confirmer cette modification.
+        </div>
+        <div>
+          <div class="panel panel-default form-content">
+            <div class="panel-heading">
+              <h3 class="panel-title">Sélectionnez une date de match</h3>
+            </div>
+            <div class="panel-body row">
+              <calendar data="matchDelay.data.date"></calendar>
+              <datepicker content-data="matchDelay.display.datePickerData"></datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group btn-group-justified btn-main-group" role="group">
+          <div class="btn-group" role="group">
+            <button type="submit" class="btn btn-primary btn-main-action">Valider</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="calendar">
+  <table class="table table-condensed">
+    <tr>
+      <th colspan="8" class="text-center">
+        <i class="glyphicon glyphicon-chevron-left clickable-item pull-left" ng-click="calendar.previousMonth()"></i>
+        {{calendar.label}}
+        <i class="glyphicon glyphicon-chevron-right clickable-item pull-right" ng-click="calendar.nextMonth()"></i>
+      </th>
+    </tr>
+    <tr>
+      <th class="text-center">Sem.</th>
+      <th class="text-center" ng-repeat="day in calendar.days">{{day}}</th>
+    </tr>
+    <tr ng-repeat="week in calendar.weeks">
+      <td class="week-number-cell">{{week.id}}</td>
+      <td class="day-cell" ng-class="{'day-selected': weekDay.selected}" ng-repeat="weekDay in week.days"
+          ng-click="changeCurrentValue(weekDay)">
+        {{weekDay.id}}
+      </td>
+    </tr>
+  </table>
+</div>

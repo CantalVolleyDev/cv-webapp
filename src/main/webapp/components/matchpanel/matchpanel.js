@@ -8,7 +8,8 @@ app.directive('matchPanel', ['$location', function($location) {
       showDetails: '=',
       openDetails: '=',
       default: '=',
-      teamDisplay: '='
+      teamDisplay: '=',
+      actions: '='
     },
     link: function(scope) {
       scope.matchClick = function(match) {

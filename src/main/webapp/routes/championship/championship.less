@@ -17,7 +17,16 @@
 /* Suppression du padding du grand panneau (celui des compétitions) */
 .championship-panel .championship-panel-body {
   padding: 0px;
-  /*height: calc(~"100% - 36px");*/
+}
+/* Style de la compétition courante */
+.championship-panel .current-competition {
+  background-color: @global-first-color-darken !important;
+  border: solid 1px @global-first-color-darken !important;
+}
+/* Style du championnat courant */
+.championship-panel .current-championship {
+  background-color: #e6e6e6 !important;
+  border: solid 1px #e6e6e6 !important;
 }
 /* Aucune bordure pour le panneau des championnats (celui du dessous) + Suppression espacement inférieur */
 .championship-sub-panel {

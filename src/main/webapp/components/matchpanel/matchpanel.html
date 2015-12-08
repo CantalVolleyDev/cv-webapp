@@ -24,29 +24,38 @@
       </div>-->
       
       <div class="match" ng-repeat="match in data"
-           ng-click="matchClick(match)"
            ng-class="{'important': important, 
                       'waiting-validation': (match.display.waitingValidation && showDetails),
                       'finished': (match.display.played && showDetails && !teamDisplay),
                       'winner': isDisplayWinner(match),
                       'looser': isDisplayLooser(match)}">
         <div class="row text-center">
-          <div class="col-lg-5 col-xs-5" ng-class="{'winner-team':match.display.firstWinner}">{{match.firstTeam.label}}</div>
-          <div class="col-lg-2 col-xs-2">{{match.display.generalScore}}</div>
-          <div class="col-lg-5 col-xs-5" ng-class="{'winner-team':match.display.secondWinner}">{{match.secondTeam.label}}</div>
+          <div class="match-detail" ng-class="{'col-xs-11': actions, 'col-xs-12': !actions}"
+               ng-click="matchClick(match)">
+            <div class="col-lg-5 col-xs-5" ng-class="{'winner-team':match.display.firstWinner}">{{match.firstTeam.label}}</div>
+            <div class="col-lg-2 col-xs-2">{{match.display.generalScore}}</div>
+            <div class="col-lg-5 col-xs-5" ng-class="{'winner-team':match.display.secondWinner}">{{match.secondTeam.label}}</div>
+          </div>
+          <div class="col-lg-1 col-xs-1 match-actions" ng-show="actions">
+            <a ng-href="#matchDelay/{{match.identifier}}" title="Reporter">
+              <i class="glyphicon glyphicon-calendar clickable-item"></i>
+            </a>
+          </div>
         </div>
         <div class="row text-center match-infos" ng-show="showDetails"
              ng-class="{'winner': isDisplayWinner(match),
                         'looser': isDisplayLooser(match),
                         'finished': (match.display.played && showDetails && !teamDisplay),
                         'waiting-validation': (match.display.waitingValidation && showDetails)}">
-          <div class="col-lg-12 col-xs-12" ng-show="!match.display.played">
-            {{match.display.longDate}}, {{match.firstTeam.gym.label}}
+          <div ng-show="!match.display.played" ng-class="{'col-xs-11': actions, 'col-xs-12': !actions}">
+            {{match.display.longDate}}, 
+            <br class="visible-xs">
+            {{match.firstTeam.gym.label}}
           </div>
-          <div class="col-lg-12 col-xs-12" ng-show="match.display.ended">
+          <div ng-show="match.display.ended" ng-class="{'col-xs-11': actions, 'col-xs-12': !actions}">
             Terminé : {{match.display.scoreDetail}}
           </div>
-          <div class="col-lg-12 col-xs-12" ng-show="match.display.played&&!match.display.ended">
+          <div ng-show="match.display.played&&!match.display.ended" ng-class="{'col-xs-11': actions, 'col-xs-12': !actions}">
             En attente de validation par {{match.display.teamWaiting}}
           </div>
         </div>

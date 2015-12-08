@@ -2,9 +2,11 @@ app.directive('commentPanel', ['DataService', 'AccountService', function(DataSer
   return {
     templateUrl: 'components/commentpanel/commentpanel.html',
     scope: {
+      title: '@',
       data: '=',
       urlPost: '=',
-      urlLoading: '='
+      urlLoading: '=',
+      hidePost: '='
     },
     link: function (scope) {
       AccountService.promise.then(function () {

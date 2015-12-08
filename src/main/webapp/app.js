@@ -54,6 +54,10 @@ app.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
     templateUrl: 'routes/upload/upload.html',
     controller: 'UploadCtrl'
   })
+  .when('/matchDelay/:id', {
+    templateUrl: 'routes/matchDelay/matchDelay.html',
+    controller: 'MatchDelayCtrl'
+  })
   /*.when('/activity', {
     templateUrl: 'routes/activity/activity.html'
   })*/

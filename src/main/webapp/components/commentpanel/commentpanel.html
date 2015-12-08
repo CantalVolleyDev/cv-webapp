@@ -1,6 +1,6 @@
 <div class="panel panel-default comment-panel">
   <div class="panel-heading">
-    <h3 class="panel-title">Commentaires</h3>
+    <h3 class="panel-title">{{title}}</h3>
   </div>
   <div class="panel-body comment">
     <container empty-message="Aucun commentaire"
@@ -24,7 +24,7 @@
       <loader ng-show="loadingComments"></loader>
       <alert ng-show="!loadingComments && errorData" error-data="errorData"></alert>
     </container>
-    <form class="new-comment" ng-submit="submitComment()">
+    <form class="new-comment" ng-submit="submitComment()" ng-show="!hidePost">
       <textarea class="form-control" rows="3" placeholder="{{commentLabel}}" ng-model="currentComment"
                 ng-disabled="!accountService.logged()"></textarea>
       <button class="btn btn-warning form-control" type="submit"
