@@ -3,7 +3,8 @@ function ($scope, $location, AccountService, DataService, $routeParams, DefaultD
   $scope.matchDelay = angular.extend({}, DefaultDataCtrlProperties, {
     commitChange: function() {
       $scope.matchDelay.loading = true;
-      var updated = $scope.matchDelay.data;
+      console.log($scope.matchDelay.data);
+      var updated = $scope.matchDelay.data.match;
       updated.date.hour($scope.matchDelay.display.datePickerData.hours);
       updated.date.minutes($scope.matchDelay.display.datePickerData.minutes);
       updated.date = updated.date.format("YYYY-MM-DD[T]HH:mm");
@@ -19,7 +20,8 @@ function ($scope, $location, AccountService, DataService, $routeParams, DefaultD
   AccountService.promise.then(function () {  
     DataService.get('/matchs/' + $routeParams.id + '/updateInfos').then(function (data) {
       $scope.matchDelay.data = data;
-      var date = moment($scope.matchDelay.data.date);
+      var date = moment($scope.matchDelay.data.match.date);
+      $scope.matchDelay.data.match.date = date;
       $scope.matchDelay.display = {
         datePickerData: {
           hours: date.format("HH"),

@@ -1,0 +1,39 @@
+<div>
+  <div class="col-lg-6">
+    <table class="table table-bordered table-condensed table-striped">
+      <tr>
+        <th class="text-center">#</th>
+        <th class="text-center">Equipe</th>
+        <th class="text-center">Pts</th>
+        <th class="text-center">J.</th>
+        <th class="text-center">V.</th>
+        <th class="text-center">P.</th>
+        <th class="text-center">2/3</th>
+        <th class="text-center hidden-xs">F</th>
+        <th class="text-center hidden-xs">SP</th>
+        <th class="text-center hidden-xs">SC</th>
+        <th class="text-center hidden-xs">PP</th>
+        <th class="text-center hidden-xs">PC</th>
+      </tr>
+      <tr ng-repeat="team in championship.currentChampionship.teams">
+        <td class="text-center">{{$index+1}}</td>
+        <td><a ng-href="#team/{{team.team.identifier}}">{{team.team.label}}</a></td>
+        <td class="text-center">{{team.points}}</td>
+        <td class="text-center">{{team.play}}</td>
+        <td class="text-center">{{team.win}}</td>
+        <td class="text-center">{{team.loose}}</td>
+        <td class="text-center">{{team.loose3By2}}</td>
+        <td class="text-center hidden-xs">{{team.forfeit}}</td>
+        <td class="text-center hidden-xs">{{team.setsFor}}</td>
+        <td class="text-center hidden-xs">{{team.setsAgainst}}</td>
+        <td class="text-center hidden-xs">{{team.pointsFor}}</td>
+        <td class="text-center hidden-xs">{{team.pointsAgainst}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-lg-6">
+    <match-panel ng-repeat="matchList in championship.currentChampionship.matchsByDays track by $index"
+                 title="Journée {{$index+1}}" data="matchList" show-details="true" open-details="true">
+    </match-panel>
+  </div>
+</div>

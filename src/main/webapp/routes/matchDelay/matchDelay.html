@@ -7,7 +7,7 @@
         <div class="title">
           Reporter un match
           <div class="well well-sm">
-            {{matchDelay.data.firstTeam.label}} - {{matchDelay.data.secondTeam.label}}
+            {{matchDelay.data.match.firstTeam.label}} - {{matchDelay.data.match.secondTeam.label}}
           </div>
         </div>
         <div class="warning-message form-content">
@@ -21,8 +21,20 @@
               <h3 class="panel-title">Sélectionnez une date de match</h3>
             </div>
             <div class="panel-body row">
-              <calendar data="matchDelay.data.date"></calendar>
+              <calendar data="matchDelay.data.match.date"></calendar>
               <datepicker content-data="matchDelay.display.datePickerData"></datepicker>
+            </div>
+          </div>
+          <div class="panel panel-default form-content">
+            <div class="panel-heading">
+              <h3 class="panel-title">Sélectionnez le gymnase du match</h3>
+            </div>
+            <div class="panel-body row">
+              <ul class="list-group text-justify">
+                <li class="clickable-item list-group-item" ng-repeat="gym in matchDelay.data.gyms"
+                    ng-class="{'active': (matchDelay.data.match.gym.identifier === gym.identifier)}"
+                    ng-click="matchDelay.data.match.gym = gym;">{{gym.label}}</li>
+              </ul>
             </div>
           </div>
         </div>

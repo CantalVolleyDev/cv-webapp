@@ -18,7 +18,10 @@
       <div class="division">
         {{match.data.match.championship.competition.label}}<span class="hidden-xs"> / {{match.data.match.championship.label}}</span>
       </div>
-      <div class="gym">{{match.data.gym.label}}</div>
+      <div class="gym">{{match.data.match.gym.label}}</div>
+      <div class="description" ng-show="match.data.match.description">
+        {{match.data.match.description}}
+      </div>
       <div ng-repeat="set in match.data.match.display.sets" ng-show="!match.data.match.forfeit">
         {{set.firstTeam}} - {{set.secondTeam}}
       </div>

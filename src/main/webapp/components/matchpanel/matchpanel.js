@@ -6,6 +6,7 @@ app.directive('matchPanel', ['$location', function($location) {
       data: '=',
       important: '=',
       showDetails: '=',
+      showChampionship: '=',
       openDetails: '=',
       default: '=',
       teamDisplay: '=',
