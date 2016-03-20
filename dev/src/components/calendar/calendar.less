@@ -1,0 +1,24 @@
+@import (reference) "../../variables.less";
+
+.calendar .week-number-cell {
+  color: darkgrey;
+  text-align: center;
+}
+
+.calendar .day-cell {
+  cursor: pointer;
+  text-align: center;
+}
+.calendar .day-cell:hover {
+  background-color: @global-second-color;
+}
+
+.calendar .table {
+  margin-bottom: 0px;
+}
+
+.calendar .day-selected {
+  background-color: @global-first-color;
+  color: @global-first-font-color;
+  font-weight: bold;
+}

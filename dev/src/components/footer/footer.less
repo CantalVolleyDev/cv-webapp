@@ -1,0 +1,23 @@
+@import (reference) "../../variables.less";
+
+.footer {
+  background-color: @global-first-color;
+  text-align: center;
+  color: @global-first-font-color;
+  font-size: @laptop-font-size;
+  height: @footer-height;
+  line-height: @footer-height;
+  vertical-align: middle;
+}
+
+@media (max-width: @screen-sm) {
+  .footer {
+    line-height: calc(@footer-height/2);
+  }
+}
+
+.footer a,
+.footer a:focus {
+  color: @global-first-font-color;
+  text-decoration: none;
+}

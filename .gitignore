@@ -1,8 +1,4 @@
-/.settings/
-/target/
-.project
-.classpath
-/src/main/webapp/node_modules
-/src/main/resources
-/src/main/webapp/node
-/src/main/webapp/grunt-cache
+/dev/resources
+/gulp-cache
+/node_modules
+/target

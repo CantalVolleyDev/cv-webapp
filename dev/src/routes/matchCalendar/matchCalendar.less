@@ -1,0 +1,28 @@
+@import (reference) "../../variables.less";
+
+.match-calendar {
+  padding: 30px;
+  background-color: @global-first-font-color;
+}
+
+@media (max-width: @screen-sm) {
+  .match-calendar {
+    padding: 15px;
+  }
+  .match-calendar .calendar {
+    margin-bottom: 20px;
+  }
+}
+
+.match-calendar .loading {
+  color: @global-first-color;
+}
+.match-calendar .sk-cube-grid .sk-cube {
+  background-color: @global-first-color;
+}
+
+.match-calendar .page-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}

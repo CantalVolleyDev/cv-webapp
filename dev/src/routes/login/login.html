@@ -1,0 +1,34 @@
+<div class="form-container">
+  <loader ng-show="login.loading"></loader>
+  <alert ng-show="login.displayError()" error-data="login.errorData"></alert>
+  <div ng-show="!login.loading&&login.isCookiesEnabled()">
+    <div class="row text-center">
+      <form class="col-lg-push-4 col-lg-4" ng-submit="log()">
+        <div class="title">
+          {{login.getPageTitle()}}
+        </div>
+        <input class="form-control" type="email" placeholder="Adresse e-mail" ng-model="login.fields.mail"
+               ng-disabled="login.isStatePasswordChange()"/>
+        <input class="form-control" type="password" placeholder="{{login.getPasswordLabel()}}" ng-model="login.fields.password"/>
+        <input class="form-control" type="password" placeholder="Nouveau mot de passe" ng-model="login.fields.newPassword"
+               ng-show="login.isStatePasswordChange()"/>
+        <input class="form-control" type="password" placeholder="Confirmation du nouveau mot de passe" 
+               ng-model="login.fields.newPasswordConfirm" ng-show="login.isStatePasswordChange()"/>
+        <div class="btn-group btn-group-justified btn-main-group" role="group">
+          <div class="btn-group" role="group">
+            <button type="submit" class="btn btn-primary btn-main-action"
+                    ng-disabled="!login.isCookiesEnabled()">{{login.getActionLabel()}}</button>
+          </div>
+        </div>
+        <div class="btn-group btn-group-justified" role="group" ng-show="login.isStateUserLogin()">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" ng-click="lostPassword()" ng-disabled="true">Mot de passe perdu ?</button>
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" ng-click="lostPassword()" ng-disabled="true">Créer un compte</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

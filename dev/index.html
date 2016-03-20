@@ -1,0 +1,24 @@
+<html ng-app="cv-webapp">
+	<head>
+    <meta charset="utf-8">
+    
+    <!-- TODO: A regarder l'intérêt du viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+		<title>CantalVolley.fr</title>
+    <link rel="icon" type="image/png" href="images/general/volley-icon.png">
+    <!-- build:css -->
+    <!-- endbuild -->
+	</head>
+	<body ng-controller="GlobalCtrl">
+    <header></header>
+    
+    <!-- TODO: Erreurs Javascript -->
+    <alert ng-show="global.errorService.error" error-data="global.errorService.transformedError"></alert>
+    
+		<div class="page-view" ng-view></div>
+    <footer></footer>
+    <!-- build:js -->
+    <!-- endbuild -->
+	</body>
+</html>

@@ -1,0 +1,75 @@
+@import (reference) "../../variables.less";
+
+.news-element {
+  /*width: calc(~"25% - "@news-element-padding*2);*/
+  /*display: inline-block;*/
+  vertical-align: top;
+  padding: @news-element-padding;
+}
+
+.news {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(214,214,214,1);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(214,214,214,1);
+  box-shadow: 0px 0px 5px 0px rgba(214,214,214,1);
+}
+
+.news:hover {
+  -webkit-box-shadow: 0px 0px 5px 0px @global-first-color;
+  -moz-box-shadow: 0px 0px 5px 0px @global-first-color;
+  box-shadow: 0px 0px 5px 0px @global-first-color;
+  cursor: pointer;
+}
+
+@media (max-width: @screen-sm) {
+  .news-element {
+    margin-bottom: 5px;
+  }
+  .news-element:first-child {
+    margin-top: 5px;
+  }
+}
+
+.news img {
+  width: 100%;
+}
+
+.news .category {
+  position: absolute;
+  top: 0 - (@news-category-height + @news-category-padding-top-bottom*2)/2;
+  left: 20px;
+  /*height: @news-category-height; | Suppression pour bootstrap*/
+  background-color: @global-first-color;
+  padding-top: @news-category-padding-top-bottom;
+  padding-bottom: @news-category-padding-top-bottom;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-weight: bold;
+  color: @global-first-font-color;
+}
+
+.news .publish-date,
+.news .publish-user {
+  color: darkgray;
+}
+
+.news .publish-date {
+  margin-top: 10px;
+}
+
+.news .detail {
+  position: relative;
+  background-color: white;
+  padding: 10px;
+  border-top: solid 2px @global-second-color;
+}
+
+.news .detail .title {
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.news .detail .content {
+  text-align: justify;
+  margin-top: 5px;
+}

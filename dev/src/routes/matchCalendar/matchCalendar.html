@@ -1,0 +1,20 @@
+<div class="row match-calendar">
+  <div class="col-lg-6">
+    <p class="page-title">Calendrier des matchs</p>
+    <p class="text-justify">
+      Sélectionnez une date dans le calendrier ci-dessous pour afficher les
+      matchs qui se dérouleront à cette dernière.
+    </p>
+    <calendar data="matchCalendar.currentDate"></calendar>
+  </div>
+  <div class="col-lg-6">
+    <div ng-show="!matchCalendar.matchLoading">
+      <match-panel title="Matchs à la date du {{matchCalendar.displayableDate}}" data="matchCalendar.matchList" 
+                   show-details="true" open-details="true" show-championship="true">
+      </match-panel>
+    </div>
+    <div ng-show="matchCalendar.matchLoading">
+      <loader></loader>
+    </div>
+  </div>
+</div>

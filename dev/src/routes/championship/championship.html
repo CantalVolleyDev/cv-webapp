@@ -1,0 +1,43 @@
+<div class="championship-global">
+  <loader ng-show="championship.loading"></loader>
+  <div ng-show="!championship.loading">
+    <div class="panel panel-primary championship-panel">
+      <div class="panel-heading panel-control">
+        <h3 class="panel-title">
+          <button ng-repeat="competition in championship.data" class="btn btn-primary"
+                  ng-class="{'current-competition': competition.identifier === championship.currentCompetition.identifier}"
+                  ng-click="championship.changeCurrentCompetition(competition)"
+                  tabindex="-1">
+            {{competition.label}}
+          </button>
+        </h3>
+      </div>
+      <div class="panel-body championship-panel-body">
+        <div class="panel panel-default championship-sub-panel">
+          <div class="panel-heading panel-control">
+            <h3 class="panel-title">
+              <button ng-repeat="chp in championship.currentCompetition.championships" class="btn btn-default"
+                      ng-class="{'current-championship': chp.identifier === championship.currentChampionship.identifier}"
+                      ng-click="championship.changeCurrentChampionship(chp)"
+                      tabindex="-1">
+                {{chp.label}}
+              </button>
+            </h3>
+          </div>
+          <div class="panel-body division-container">
+            <loader ng-show="championship.loadingChampionship"></loader>
+            <div class="row" ng-show="!championship.loadingChampionship">
+              <div class="description" ng-show="championship.currentChampionship.description">
+                {{championship.currentChampionship.description}}
+              </div>
+              <div ng-include src="'src/routes/championship/chp.html'" ng-show="championship.currentChampionship.type === 'CHP'"></div>
+              <div ng-include src="'src/routes/championship/mat.html'" ng-show="championship.currentChampionship.type === 'QUA'"></div>
+              <div ng-include src="'src/routes/championship/cup.html'" 
+                   ng-show="championship.currentChampionship.type === 'CUP'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

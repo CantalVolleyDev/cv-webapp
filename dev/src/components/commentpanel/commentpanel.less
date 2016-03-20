@@ -1,0 +1,55 @@
+@import (reference) "../../variables.less";
+
+.comment-panel {
+  background-color: @global-second-color;
+}
+.comment-panel .data-container {
+  padding: 0px;
+}
+.comment-panel .comment .comment-content {
+  margin-bottom: 10px;
+}
+.comment-panel .comment .logo {
+  padding: 0px;
+  text-align: center;
+}
+@media (max-width: @screen-sm) {
+  .comment-panel .comment .logo {
+    padding-right: 5px;
+  }
+  .comment-panel .comment .logo img {
+    max-width: 100%;
+  }
+}
+.comment-panel .comment .logo img {
+  max-width: 40px;
+}
+.comment-panel .comment .author {
+  font-weight: bold;
+}
+.comment-panel .comment .date {
+  color: @global-second-color-darken;
+}
+.comment-panel .comment .content {
+  padding-left: 0px;
+}
+.comment-panel .comment .new-comment {
+  margin-top: 10px;
+  margin-bottom: 0px; /* Suppression margin du form */
+}
+.comment-panel .comment .new-comment .form-control {
+  margin-bottom: 5px;
+}
+.comment-panel .comment .new-comment .form-control:last-child {
+  margin-bottom: 0px;
+}
+.comment-panel .alert {
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+.comment-panel .loading {
+  color: @global-first-color;
+}
+.comment-panel .sk-cube-grid .sk-cube {
+  background-color: @global-first-color;
+}

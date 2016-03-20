@@ -1,0 +1,11 @@
+<div class="col-lg-push-3 col-lg-6">
+  <div class="btn-group btn-group-justified" role="group">
+    <div class="btn-group" role="group" ng-repeat="step in championship.currentChampionship.steps">
+      <button type="button" class="btn" 
+              ng-class="{'btn-primary': step.current, 'btn-default': !step.current}"
+              ng-click="championship.changeCurrentCupStep(step)">{{step.label}}</button>
+    </div>
+  </div>
+  <match-panel data="championship.currentChampionship.displayMatchs" show-details="true" open-details="true">
+  </match-panel>
+</div>
