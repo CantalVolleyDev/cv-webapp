@@ -51,7 +51,7 @@ var globals = {
   },
   utils: {
     lodashFunctions: [
-      'filter', 'each', 'remove', 'find', 'groupBy', 'capitalize', 'sortByAll'
+      'filter', 'each', 'remove', 'find', 'groupBy', 'capitalize', 'sortByAll', 'max'
     ]
   }
 };

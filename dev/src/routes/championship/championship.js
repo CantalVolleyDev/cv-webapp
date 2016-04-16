@@ -19,7 +19,9 @@ app.controller('ChampionshipCtrl', ['$scope', 'DefaultDataCtrlProperties', 'Data
           return m.step;
         });
         if ($scope.championship.currentChampionship.type === 'CUP') {
-          var size = Math.max(_.keys($scope.championship.currentChampionship.matchsByDays));
+          var size = parseInt(_.max(_.keys($scope.championship.currentChampionship.matchsByDays)), 10);
+          console.log("Debug");
+          console.log(size);
           var steps = [];
           var getLabel = function(level) {
             switch (level) {

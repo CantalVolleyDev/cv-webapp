@@ -21,6 +21,12 @@ Evolutions :
           <li>Page équipe : Dans la liste des 5 derniers matchs, désormais on peut voir pour quel compétition le match s'est disputé (championnat, coupe...)</li>
         </ul>
       </li>
+      <li>
+        <code>v2.0.0b1</code>
+        <ul>
+          <li>[FIX] Page "coupe" - Si plusieurs niveaux, boucle infinie sur le calcul des tours : Remplacement de <code>Math.max()</code> par <code>_.max()</code>, lors du calcul des étapes d'une coupe</li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li>
